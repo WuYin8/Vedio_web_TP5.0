@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<!-- 
+	找回密码页面，向php中提供邮箱，只允许数据库中的邮箱使用
+	发送邮件后获取状态码判断是否成功，获取验证码存至session
+ -->
+<html>
+<head>
+	<title>{block name="title"}找回密码-爱闪视频网{/block}</title>
+	<meta charset="utf-8"/>
+</head>
+<body>
+	{extend name="layoutOther"}
+	{block name="showBody"}
+	<style type="text/css">
+		.box {
+			min-width: 440px;
+			width: 70%; 
+			min-height: 500px; 
+			margin: 10% 
+			auto 10%; 
+			background-color: #f3f3f3; 
+			box-shadow: 2px 2px 2px #C1C1C1;
+			padding-top:10px;
+			padding-bottom:10px;
+		}
+		.box input[type="text"] {
+			width: 100%;
+		}
+		.col-sm-9 {
+
+			margin-bottom: 20px;
+		}
+		.box input[type="submit"] {
+			margin: 10px auto;
+		}
+		.mailUp {
+			margin: 5% auto;
+			text-align: center;
+			width: 80%;
+		}
+		.mailDown {
+			margin: 5% auto;
+			text-align: center;
+			width: 80%;
+			display: none;
+		}
+		.wName , .wEmail , .wCode , .wPwd1 , .wPwd2 {
+			/*display: none;*/
+			color: red;
+		}
+		.spans {
+			text-align: left;
+		}
+	</style>
+	<div class="show-top-grids">
+		<div class="box" id="mailBox">
+			<!-- 邮箱发消息区域 -->
+			<div class="mailUp">
+			<p style="color:#ED62ED; font-size: 20px; font-weight: bolder; margin: 0 auto 30px; padding-top: 30px;">请填写以下信息，让我们帮助您找回密码：</p>
+				<div class="form-group">
+					<label for="inputEmail3" class="col-sm-3 control-label">用户名</label>
+					<div class="col-sm-9">
+						<input type="text" class="form-control" id="inputName" placeholder="此处填写用户名">
+						<div class="spans">
+							<span class="wName"></span>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="inputEmail3" class="col-sm-3 control-label">邮箱地址</label>
+					<div class="col-sm-9">
+						<input type="text" class="form-control" id="inputEmail2" placeholder="填写注册账号时的邮箱地址">
+						<div class="spans">
+							<span class="wEmail"></span>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<input type="submit" value="获取验证码" id="codeBtn" />
+				</div>
+			</div>
+			<script type="text/javascript">
+				$('#codeBtn').on('click', function() {
+					var inputName = $('#inputName').val();
+					var inputEmail2 = $('#inputEmail2').val();
+					if (inputName.length == 0) {
+						$('.wName').css('display', 'block');
+						$('.wName').html('用户名不得为空');
+						return false;
+					} else {
+						$('.wName').css('display', 'none');
+						$('.wName').html('');
+					}
+					if (inputEmail2.length == 0) {
+						$('.wEmail').css('display', 'block');
+						$('.wEmail').html('邮箱地址不得为空');
+						return false;
+					} else {
+						$('.wEmail').css('display', 'none');
+						$('.wEmail').html('');
+					}
+					// ajax传后台判断用户名，邮箱是否匹配
+					$.ajax({
+						type:'post',
+						url:'/index/mail/changEmail',
+						data:{
+							'inputName':inputName,
+							'inputEmail':inputEmail2,
+						},
+						dataType:'json',
+						async:true,
+						success:success
+					});
+					function success(data)
+					{
+						console.log(data);
+						var obj = JSON.parse(data);
+						if (obj['msg'] == 'noName') {
+							alert('用户名不存在');
+							$('.wName').css('display', 'block');
+							$('.wName').html('用户名不存在');
+							return false;
+						}else if (obj['msg'] == 'three') {
+							alert('第三方登陆用户没有修改资料的权限');
+							$('.wName').css('display', 'block');
+							$('.wName').html('第三方登陆用户没有修改资料的权限');
+							return false;
+						} else {
+							$('.wName').css('display', 'none');
+							$('.wName').html('');
+						}
+						if (obj['msg'] == 'noEmail') {
+							alert('邮箱地址与用户名不匹配');
+							$('.wEmail').css('display', 'block');
+							$('.wEmail').html('邮箱地址与用户名不匹配');
+							return false;
+						}else if (obj['msg'] == 'shitEmail') {
+							alert('邮件发送不成功，请联系管理员');
+							$('.wEmail').css('display', 'block');
+							$('.wEmail').html('邮件发送不成功，请联系管理员');
+							return false;
+						} else if (obj['msg'] == 'getEmail') {
+							alert('邮件已发送，请尽快填写验证码');
+							$('.wEmail').css('display', 'none');
+							$('.wEmail').html('');
+							$('.mailDown').css('display', 'block');;
+						}
+					}
+					return false;
+				});
+			</script>
+			<!-- 完成-邮箱发邮件区域 -->
+			<!-- 修改密码区域 -->
+			<div class="mailDown">
+				<div class="form-group">
+				    	<label for="inputEmail3" class="col-sm-3 control-label">验证码</label>
+				    	<div class="col-sm-9">
+				      		<input type="text" class="form-control" id="inputCode2" placeholder="填写邮件中收到的验证码">
+						<div class="spans">
+							<span class="wCode"></span>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="inputPassword3" class="col-sm-3 control-label">输入新密码</label>
+					<div class="col-sm-9">
+						<input type="password" class="form-control" id="inputPassword1" placeholder="密码长度不得小于6位">
+						<div class="spans">
+							<span class="wPwd1"></span>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="inputPassword3" class="col-sm-3 control-label">再次输入新密码</label>
+					<div class="col-sm-9">
+						<input type="password" class="form-control" id="inputPassword2" placeholder="两次输入密码应相同">
+						<div class="spans">
+							<span class="wPwd2"></span>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<input type="submit" value="重置密码" id="pwdBtn" />
+				</div>
+			</div>	 
+			<script type="text/javascript">
+				$('#pwdBtn').on('click', function() {
+					var inputName = $('#inputName').val();
+					var inputCode2 = $('#inputCode2').val();
+					var inputPwd = $('#inputPassword1').val();
+					var inputPwd2 = $('#inputPassword2').val();
+					if (inputCode2.length == 0) {
+						$('.wCode').css('display', 'block');
+						$('.wCode').html('验证码不得为空');
+						return false;
+					} else {
+						$('.wCode').css('display', 'none');
+						$('.wCode').html('');
+					}
+					if (inputPwd.length < 6) {
+						$('.wPwd1').css('display', 'block');
+						$('.wPwd1').html('密码长度不得小于6位');
+						return false;
+					} else {
+						$('.wPwd1').css('display', 'none');
+						$('.wPwd1').html('');
+					}
+					if (inputPwd != inputPwd2) {
+						$('.wPwd2').css('display', 'block');
+						$('.wPwd2').html('两次输入密码不相同');
+						return false;
+					} else {
+						$('.wPwd2').css('display', 'none');
+						$('.wPwd2').html('');
+					}
+					// ajax后台传递，判断验证码与更改密码
+					$.ajax({
+						type:'post',
+						url:'/index/mail/changePwd',
+						data:{
+							'inputCode':inputCode2,
+							'inputPwd':inputPwd,
+							'inputName':inputName,
+						},
+						dataType:'json',
+						async:true,
+						success:success1
+					});
+					function success1(data)
+					{
+						var obj = JSON.parse(data);
+						if (obj['msg'] == 'shit') {
+							alert('密码重置失败');
+							window.location.reload(); 
+							return false;
+						}
+						if (obj['msg'] == 'great') {
+							alert('密码重置成功');
+							$(location).prop('href', "/index");
+							return false;
+						}
+					}
+				});
+			</script> 
+			<!-- 完成-密码修改区域  -->
+		</div>
+	</div>
+	<script type="text/javascript">
+		
+	</script>
+	{/block}
+</body>
+</html>

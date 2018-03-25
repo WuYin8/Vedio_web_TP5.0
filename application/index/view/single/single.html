@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{block name="title"}{$vTitle}-爱闪视频网{/block}</title>
+	<style type="text/css" media="screen">
+		.bdsharebuttonbox span {
+			font-size: 20px;
+		}
+	</style>
+</head>
+<body>
+	{extend name="layoutSingle"}
+	{block name="showBody"}
+	<script type="text/javascript">
+	</script>
+		<div class="show-top-grids">
+			<!-- 视频播放页面 -->
+				<div class="col-sm-9 single-left">
+					<!-- 视频播放区域 -->
+					<div class="song">
+						<div class="song-info">
+							<h3><b>{$vTitle}</b></h3>	
+						</div>
+						<div class="video-gird">
+							<section>
+								<video width="100%" height="100%" id="video1" src=""></video>
+								<span id="videoS" style="display: none;">{$vSrc}</span>
+							</section>
+						</div>
+					</div>
+					<script type="text/javascript">
+						window.onscroll = function () {
+							var vBox = document.getElementsByClassName('video-gird');
+							// 视频区域，距窗口顶部的距离
+							var vBoxTop = vBox['0'].offsetTop;
+							var vBoxHeight = vBox['0'].offsetHeight;
+							//得到卷起的高度
+							var scrollTop = document.documentElement.scrollTop;
+							if (scrollTop > vBoxTop + vBoxHeight) {
+								$('.video-gird').eq(0).css({
+									'position': 'fixed',
+									'right': '0',
+									'top': '10%',
+									'width': '30%',
+									'height': '20%',
+									'z-index':'999',
+									'background-color': 'transparent',
+									'border': '0',
+								});
+							} else {
+								$('.video-gird').eq(0).css({
+									'display': 'block',
+									'width': '100%',
+									'height': '100%',
+									'position': 'relative',
+									'margin': 'auto',
+									'border': '5px solid #000',
+									'background-color': '#000000',
+								});
+							}
+						};
+					</script>
+					<!-- 完成-视频播放区 -->
+					<!-- 分享按钮区域 -->
+					<div class="song-grid-right">
+						<div class="bdsharebuttonbox">
+							<h5 style="color: #ED62ED; position: relative;left: -6px;">分享到</h5>
+							<a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+							<a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+							<a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a>
+							<a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+							<a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a>
+							<a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+							<a href="#" class="bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+							<a href="#" class="bds_more" data-cmd="more"></a>
+						</div>
+						<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"来自“爱闪视频网”的分享","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"32"},"share":{},"image":{"viewList":["qzone","tsina","renren","weixin","tieba","douban","sqq","youdao","copy"],"viewText":"分享到：","viewSize":"32"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","renren","weixin","tieba","douban","sqq","youdao","copy"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+					</div>
+					<!-- 完成-分享按钮区域 -->
+					<div class="clearfix"> </div>
+					<!-- 视频信息 -->
+					<div class="published">
+							<div class="load_more">	
+								<ul id="myList">
+									<li>
+										<a href="/index/user/showMsg?whoID={$vUpID}"><img src="{$vUpPhoto}" width="65px"/></a>
+										<b style="font-size: 16px; color: #ED62ED;">{$vUpName}</b>
+										{if !empty($vLabel)}
+										<span class="glyphicon glyphicon-tags"></span>
+										{foreach $vLabel as $value}
+										{if !empty($value)}
+										<button class="tagBtn">{$value}</button>
+										{/if}
+										{/foreach}
+										{/if}
+										<span><b>|</b></span>
+										<!-- {$likeID = $_GET['vid']} -->
+										{if empty(cookie($likeID))}	
+											<button id="zan" class="glyphicon glyphicon-heart-empty" style="font-size: 16px; color: red;background-color: transparent; height: 20px; line-height: 20px;">赞一赞</button>
+										{else if}
+											<button id="zan" class="glyphicon glyphicon-heart" style="font-size: 16px; color: red;background-color: transparent; height: 20px; line-height: 20px;">超赞的！！</button>
+										{/if}
+										<span id="likeNum">{$vLike}</span>人赞过
+										<script type="text/javascript">
+											$('#zan').click(function() {
+												var likeNum = parseInt($('#likeNum').html());
+												if ($(this).html() == '赞一赞') {
+													$(this).removeClass('glyphicon-heart-empty').addClass('glyphicon-heart');
+													$(this).html('超赞的！！')
+													likeNum = likeNum + 1;
+													$('#likeNum').html(likeNum);
+													$.ajax({
+														type:'post',
+														url:'/index/single/dealZan',
+														data:{
+															zan:'yes',
+															vid:{$_GET['vid']},
+														},
+														dataType:'json',
+														async:true,
+													});
+												} else if ($(this).html() == '超赞的！！') {
+													$(this).removeClass('glyphicon-heart').addClass('glyphicon-heart-empty');
+													$(this).html('赞一赞')
+													likeNum = likeNum - 1;
+													$('#likeNum').html(likeNum);
+													$.ajax({
+														type:'post',
+														url:'/index/single/dealZan',
+														data:{
+															zan:'no',
+															vid:{$_GET['vid']},
+														},
+														dataType:'json',
+														async:true,
+													});
+												}
+												
+											});
+										</script>
+										<style type="text/css" media="screen">
+											.tagBtn {
+												height: 18px;
+												padding: 0 2px 0;
+												margin-left: 2px;
+											}	
+										</style>
+									</li>
+									<li>
+										<h4>发布于：{$vUpTime}</h4>
+										<p>{$vWord}</p>
+									</li>
+									
+								</ul>
+							</div>
+					</div>
+					<!-- 完成-视频信息 -->
+					<div class="all-comments">
+						<!-- 评论编辑区 -->
+						<div class="all-comments-info">
+							<div class="box">
+									<textarea placeholder="请登陆后发表评论" class="msgReport"></textarea>
+									<input type="submit" value="发布评论" class="addReport" />
+									<input type="hidden" value="{$_GET['vid']}" class="vid" />
+									<div class="clearfix"> </div>
+								<script type="text/javascript">
+								// ajax插入评论的方法，不用ajax直接展示，而是插入数据库后，重新调用ajax拉取后台数据即可
+									$('.addReport').on('click', function(event) {
+										var vid = $('.vid').val();
+										var msgReport = $('.msgReport').val();
+										if (msgReport.length == 0) {
+											alert('未输入评论');
+											return false;
+										}
+										$.ajax({
+											type:'post',
+											url:'/index/single/addReport',
+											data:{
+												content:msgReport,
+												vid:vid,
+											},
+											dataType:'json',
+											async:false,
+											success:addNum,
+										});
+										function addNum(data)
+										{
+											var obj = JSON.parse(data);
+											if (obj['msg'] == 'noAdd') {
+												alert('评论失败');
+												return false;
+											}
+											if (obj['msg'] == 'noLogin') {
+												alert('请登录后再评论');
+												return false;
+											}
+											if (obj['msg'] == 'great') {
+												$('.msgReport').val('');
+												var reportNum = $('#reportNum').html();
+												var newNum = parseInt(reportNum) + 1;
+												$('#reportNum').html(newNum);
+											}
+										}
+										$.ajax({
+											type:'post',
+											url:'/index/single/getReport?vid=' + {$_GET['vid']},
+											data:{
+												page:1,
+											},
+											dataType:'json',
+											async:false,
+											success:success
+										});
+										return false;
+									});
+								</script>
+							</div>
+						</div>
+						<!-- 完成-评论编辑区 -->
+						<!-- 评论展示区，需要分页，楼中楼分页与评论分页要区分 -->
+						<div class="media-grids">
+								<b style="font-size: 16px; color: #ED62ED;">所有评论（<span id="reportNum">{$reportC}</span>）</b>
+							<div class="all-comments-buttons">
+								<ul>
+									<li><a href="" class="top newest">最新评论</a></li>
+									<li><a href="" class="top oldest">最早评论</a></li>
+								</ul>
+								<script type="text/javascript">
+									// 最新评论与默认的评论浏览方式一致
+									$('.newest').on('click', function() {
+										$.ajax({
+											type:'post',
+											url:'/index/single/getReport?vid=' + {$_GET['vid']},
+											data:{
+												page:1,
+											},
+											dataType:'json',
+											async:true,
+											success:success
+										});
+										return false;
+									});
+									// 最早评论要更新ajax的传值
+									$('.oldest').on('click', function() {
+										$.ajax({
+											type:'post',
+											url:'/index/single/getReportOld?vid=' + {$_GET['vid']},
+											data:{
+												page:1,
+											},
+											dataType:'json',
+											async:true,
+											success:success
+										});
+										return false;
+									});
+								</script>
+							</div>
+							<hr style="width: 90%; margin:20px auto;height:1px;border:none;border-top:1px dashed #C1C1C1;" />
+							<span id="position" style="display: none;"></span>
+							<div id="bigBox" style="margin-top: 10px;"></div>
+							<!-- 在此进行ajax分页展示 -->
+						</div>
+						<!-- 完成-评论展示区 -->
+						<!-- 分页区 -->
+						<div class="pages">
+							<a href ="" class="aPage">首页</a>
+							<a href ="" class="aPage">前页</a>
+							<a href ="" class="aPage">后页</a>
+							<a href ="" class="aPage">尾页</a>
+						</div>
+						<style type="text/css">
+							.pages {
+								margin-top: 10px;
+								position: relative;
+								left: 42%;
+							}
+							.pages a {
+								font-size: 16px;
+								text-decoration: none;
+								color: #ED62ED;
+								margin-left: 10px;
+							}
+							.pages a:hover {
+								color: #cdcdcd;
+							}		
+						</style>
+						<!-- 完成-分页区 -->
+						<!-- 评论展示方法 -->
+						<script type="text/javascript">
+							var bBox = document.getElementById('bigBox');
+							var pA = document.getElementsByClassName('aPage');
+							$(function () {
+								$.ajax({
+									type:'post',
+									url:'/index/single/getReport?vid=' + {$_GET['vid']},
+									data:{
+										page:1,
+									},
+									dataType:'json',
+									async:true,
+									success:success
+								});
+							});
+
+							function success(data)
+							{
+								bBox.innerHTML = '';
+								var obj = JSON.parse(data);
+								// 开始主评论遍历展示
+								for (var i =  0; i < obj['dataL'].length; i++) {
+									var Box = document.getElementById('bigBox');
+									// 添加第一层标签
+									var lDiv = document.createElement('div');
+									var sBox = document.createElement('div');
+									lDiv.className = 'media';
+									$(lDiv).val(obj['dataL'][i]['id']);
+									sBox.className = 'smallBox';
+									$(lDiv).css({
+										'box-shadow': '0px 0 2px #C1C1C1',
+										'padding': '5px',
+										'margin-top': '2em',
+										'margin-bottom': '2em',
+									});
+									$(sBox).css({
+										'max-height': '500px',
+										'overflow':'auto',
+									});
+									Box.appendChild(lDiv);
+									Box.appendChild(sBox);
+									// 添加第二层标签
+									var mH5 = document.createElement('h5');
+									$(mH5).html(obj['dataL'][i]['username']);
+									$(mH5).css({
+										'font-size': '14px',
+										'margin':0,
+										'color':'#21DEEF',
+										'font-weight':'bolder',
+									});
+									var mSpan = document.createElement('span');
+									$(mSpan).html(obj['dataL'][i]['create_time']);
+									$(mSpan).css({
+										'background-color': '#f7f7f7',
+									});
+									// 创建一个楼中楼回复的输入框
+									var mA = document.createElement('a');
+									$(mA).html('回复');
+									mA.href = '#zan';
+									$(mA).css({
+										'float': 'right',
+										'display':'block',
+										'padding':'5px',
+										'text-decoration':'none',
+										'font-weight':'bolder',
+										'background-color':'#cdcdcd',
+										'border-radios':'5px',
+										'color':'white',
+
+									});
+									$(mA).on('click', function() {
+										var oId = $(this).parent().val();
+										// 点击时，弹出另一个输入楼中楼回复的输入框
+										// 创建一个div
+										var bDiv = document.createElement('div');
+										// 加属性
+										$(bDiv).css({
+											'position': 'fixed',
+											'z-index':'200',
+											'top':'30%',
+											'left':'30%',
+											'background-color':'#e7e7e7',
+											'padding':'30px',
+											'width':'500px',
+											'border-radios':'20px',
+											'box-shadow': '5px 5px 5px #C1C1C1',
+										});
+										// div插入页面
+										document.body.appendChild(bDiv);
+										// 创建输入框
+										var aText = document.createElement('textarea');
+										var aBtn = document.createElement('button');
+										// 输入框属性
+										$(aText).css({
+											'width': '400px',
+											'height': '200px',
+										});
+										$(aBtn).html('发表楼中楼回复');
+										$(aBtn).css({
+											'font-size':'16px',
+											'padding':'5px',
+											'background-color':'#ED62ED',
+											'border-radios':'10px',
+										});
+										// 输入框插入div
+										bDiv.appendChild(aText);
+										bDiv.appendChild(aBtn);
+
+										// 创建叉
+										var aSpan = document.createElement('span');
+										// 叉属性
+										aSpan.style.fontSize = '50px';
+										aSpan.innerHTML = '×';
+										$(aSpan).css({
+											'position': 'absolute',
+											'top': '0',
+											'right': '0',
+										});
+										// 插入页面
+										bDiv.appendChild(aSpan);
+
+										// 点击事件
+										aSpan.onclick = del;
+										function del() {
+											document.body.removeChild(bDiv);
+										}
+										aBtn.onclick = reportS;
+										function reportS()
+										{
+											aText = $(aText).val();
+											if (aText.length == 0) {
+												alert('评论不能为空');
+												document.body.removeChild(bDiv);
+											} else {
+												$.ajax({
+													type:'post',
+													url:'/index/single/addReportII',
+													data:{
+														vid:{$_GET['vid']},
+														pid:oId,
+														content:aText,
+													},
+													dataType:'json',
+													async:true,
+													success:suc
+												});
+												function suc(data)
+												{	
+													var obj = JSON.parse(data);
+													if (obj['msg'] == 'noLogin') {
+														alert('请登录后再评论');
+														document.body.removeChild(bDiv);
+														return false;
+													}
+													if (obj['msg'] == 'noAdd') {
+														alert('评论失败');
+														document.body.removeChild(bDiv);
+														return false;
+													}
+													window.location.reload();
+												}
+											}
+										}
+										return false;
+									});
+									// 完成-楼中楼输入框
+									var mDiv = document.createElement('div');
+									mDiv.className = 'media-left';
+									var mDiv1 = document.createElement('div');
+									mDiv1.className = 'media-body';
+									lDiv.appendChild(mH5);
+									lDiv.appendChild(mSpan);
+									lDiv.appendChild(mA);
+									lDiv.appendChild(mDiv);
+									lDiv.appendChild(mDiv1);
+									// 添加第三层标签
+									var sA = document.createElement('a');
+									var sP = document.createElement('p');
+									sA.href = '/index/user/showMsg?whoID=' + obj['dataL'][i]['userid'];
+									$(sP).html(obj['dataL'][i]['content']);
+									mDiv.appendChild(sA);
+									mDiv1.appendChild(sP);
+									// 添加第四层标签
+									var sImg = document.createElement('img');
+									sImg.src = obj['dataL'][i]['photo'];
+									$(sImg).css({
+										'width': '65px',
+										'height': '65px'
+									});
+									sA.appendChild(sImg);
+									// 完成-主评论遍历展示
+									for (var j =  0; j < obj['dataS'].length; j++) {
+										// 楼中楼回复遍历展示，先确认展示条件
+										if (obj['dataS'][j]['pid'] == obj['dataL'][i]['id']) {
+											/// 添加第一层标签
+											var sDiv = document.createElement('div');
+											sDiv.className = 'media-child';
+											$(sDiv).css({
+												'margin': '10px 0 0 40px',
+												'padding-left': '10px',
+												'border-left': '2px solid #cdcdcd',
+											});;
+											sBox.appendChild(sDiv);
+											// 添加第二层标签
+											var mH5 = document.createElement('h5');
+											$(mH5).html(obj['dataS'][j]['username']);
+											$(mH5).css({
+												'font-size': '14px',
+												'margin':0,
+												'color':'#21DEEF',
+												'font-weight':'bolder',
+											});
+											var mSpan = document.createElement('span');
+											$(mSpan).html(obj['dataS'][j]['create_time']);
+											$(mSpan).css({
+												'background-color': '#f7f7f7',
+											});
+											var mDiv = document.createElement('div');
+											mDiv.className = 'media-left';
+											var mDiv1 = document.createElement('div');
+											mDiv1.className = 'media-body';
+											sDiv.appendChild(mH5);
+											sDiv.appendChild(mSpan);
+											sDiv.appendChild(mDiv);
+											sDiv.appendChild(mDiv1);
+											// 添加第三层标签
+											var sA = document.createElement('a');
+											var sP = document.createElement('p');
+											sA.href = '/index/user/showMsg?whoID=' + obj['dataS'][j]['userid'];
+											$(sP).html(obj['dataS'][j]['content']);
+											mDiv.appendChild(sA);
+											mDiv1.appendChild(sP);
+											// 添加第四层标签
+											var sImg = document.createElement('img');
+											sImg.src = obj['dataS'][j]['photo'];
+											$(sImg).css({
+												'width': '65px',
+												'height': '65px'
+											});
+											sA.appendChild(sImg);
+											// 完成-楼中楼回复遍历展示
+										}
+										
+									}
+									
+								}
+
+								// 把allpage的链接赋值到a标签上
+								var oPage = obj['pages'];
+								var i = 0;
+								for (var name in oPage) {
+									pA[i].href = 'javascript:test(\'' + oPage[name] + '\')';
+									i++;
+								}
+							}	
+							function test(url)
+							{
+								$.ajax({
+									type:'get',
+									url:url,
+									async:true,
+									data:null,
+									dataType:'json',
+									success:success
+								});
+							}
+						</script>
+						<!-- 完成-评论展示方法 -->
+					</div>
+				</div>
+				<div class="col-md-3 single-right">
+					<!-- 视频列表区域，需要遍历 -->
+					<h3>推荐列表</h3>
+					<div class="single-grid-right">
+						{foreach $res as $vRes}
+						{if !empty($vRes['0'])}
+						<div class="single-right-grids">
+							<div class="col-md-4 single-right-grid-left">
+								<a href="/index/single/single?vid={$vRes['0']['id']}"><img src="http://p3d4qx20z.bkt.clouddn.com/{$vRes['0']['pic']}" alt="" /></a>
+							</div>
+							<div class="col-md-8 single-right-grid-right">
+								<a href="/index/single/single?vid={$vRes['0']['id']}" class="title">{$vRes['0']['title']}</a>
+								<p class="author">{$vRes['0']['up_name']}</p>
+								<p class="views" style="color:#21DEEF;">{$vRes['0']['click_num'] / 2}次浏览</p>
+							</div>
+							<div class="clearfix"> </div>
+						</div>
+						{/if}
+						{/foreach}
+					</div>
+				</div>
+				<!-- 完成-视频列表区域 -->
+				<div class="clearfix"> </div>
+			</div>
+			<!-- 完成-视频播放页面 -->
+	{/block}
+</body>
+</html>

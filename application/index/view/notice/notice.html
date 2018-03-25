@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<!-- 
+	调用跳转页面，需要在模板引擎中提供参数：
+	$i  :  跳转等待时间
+	$msgUp  :  主要提示信息
+	$url  :  默认的跳转地址
+	$url1  :  链接1的地址
+	$url2  :  链接2的地址
+	$msg1  :  链接2的提示信息
+	$msg2  :  链接2的提示信息
+ -->
+<html>
+<head>
+	<title>{block name="title"}提示信息-爱闪视频网{/block}</title>
+	<meta charset="utf-8"/>
+</head>
+<body>
+	{extend name="layoutOther"}
+	{block name="showBody"}
+	<style type="text/css">
+		.msgBox {
+			background-color: #F3F3F3;
+			margin: 50px ; 
+			padding: 100px 80px 100px 80px;
+			text-align: center;
+		}
+		.msg {
+			font-size: 60px;
+			margin-bottom: 50px;
+		}
+		.msgUrl {
+			font-size: 2em;
+		}
+		.msgUrl a {
+			text-decoration: none;
+			background-color: #ED62ED;
+			color: white;
+			display: block;
+			height: 2.5em;
+			line-height: 2.5em;
+			width: 8em;
+			border-radius: 10px;
+			margin: 10px auto;
+		}
+		.msgUrl a:hover{
+			color: #272C2E;
+			background-color: #F3F3F3;
+			border: 2px solid #ED62ED;
+			border-radius: 10px;
+			height: 2.5em;
+			line-height: 2.5em;
+		}
+		.timer {
+			font-size: 3em;
+			font-weight: bolder; 
+			margin-bottom: 30px;
+		}
+	</style>
+	<script type="text/javascript">
+		var i = {$i};
+		if (i== 0) {
+			$(location).prop('href', '/index');
+		}
+		var timer = null;
+		$(function () {
+			var timer = setInterval( function () {
+				$('.timer').html( i + '秒后跳转回首页');
+				i--;
+				if (i <= 0) {
+					clearInterval(timer);
+					$('.timer').html('正在跳转回首页……');
+					$(location).prop('href', "{$url}");
+				}
+			} , 1000);
+		});
+	</script>
+		<div class="show-top-grids">
+			<div class="msgBox">
+				<div class="msg">{$msgUp}</div>
+				<div class="timer">处理中……</div>
+				<div class="msgUrl">
+					<a href="{$url1}">{$msg1}</a>
+					或者
+					<a href="{$url2}">{$msg2}</a>
+				</div>
+			</div>
+		</div>
+	{/block}
+</body>
+</html>

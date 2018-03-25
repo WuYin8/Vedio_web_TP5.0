@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<!-- 
+	个人中心的默认页面，在php页面需要一开始就判断是否登录
+	以及来访的是否是本人
+	模块有/资料管理/投稿视频/留言板/后台登录（管理员权限）
+ -->
+<html>
+<head>
+	<title>{block name="title"}个人留言板-爱闪视频网{/block}</title>
+	<meta charset="utf-8"/>
+</head>
+<body>
+	{extend name="layoutOther"}
+	{block name="showBody"}
+	<style type="text/css">
+		.userBox {
+			margin: 20px 50px 50px; 
+			padding: 0 50px 50px;
+			text-align: left;
+		}
+		.userBox .title {
+			font-size: 20px;
+		}
+		.pages {
+			margin-top: 10px;
+			position: relative;
+			left: 42%;
+		}
+		.pages a {
+			font-size: 16px;
+			text-decoration: none;
+			color: #ED62ED;
+			margin-left: 10px;
+		}
+		.pages a:hover {
+			color: #cdcdcd;
+		}		
+	</style>
+	<div class="show-top-grids">
+		<div class="userBox">
+			<p class="title" style="color: #ED62ED; font-weight: bolder;">{$whoName}的留言板</p>
+			<!-- 留言编辑区 -->
+			<div class="all-comments-info">
+				<div class="box">
+						<textarea placeholder="在此发表留言" required=" " class="myMsg"></textarea>
+						<input type="submit" class="msgBtn" value="发布留言板">
+						<div class="clearfix"> </div>
+				</div>
+				<!-- 新增留言的方法 -->
+				<script type="text/javascript">
+					$('.msgBtn').on('click', function() {
+						var myMsg = $('.myMsg').val();
+						if (myMsg.length == 0) {
+							alert('未填写留言');
+							return false;
+						}
+						$.ajax({
+							type:'post',
+							url:'/index/user/addMsg?whoID=' + {$whoID},
+							data:{
+								'content':myMsg,
+							},
+							dataType:'json',
+							async:false,
+							success:success1
+						});
+						function success1(data)
+						{
+							var obj = JSON.parse(data);
+							if (obj['msg'] == 'noAdd') {
+								alert('留言失败');
+							}
+							$('.myMsg').val('');
+						}
+						$.ajax({
+							type:'post',
+							url:'/index/user/getMsg?whoID=' + {$whoID},
+							data:{
+								page:1,
+							},
+							dataType:'json',
+							async:false,
+							success:success
+						});
+						return false;
+					});;
+						
+				</script>
+				<!-- 完成-新增留言的方法 -->
+
+			</div>
+			<!-- 完成-留言编辑区 -->
+
+			<!-- 留言展示区-需要ajax展示遍历与分页 -->
+			<div id="msgBox" style="margin-top: 20px;">
+				
+			</div>
+			<!-- 分页标签部分 -->
+			<div class="pages">
+				<a href ="" class="aPage">首页</a>
+				<a href ="" class="aPage">前页</a>
+				<a href ="" class="aPage">后页</a>
+				<a href ="" class="aPage">尾页</a>
+			</div>
+			<!-- 完成-分页标签部分 -->
+			<!-- 展示留言的方法 -->
+			<script type="text/javascript">
+				var mBox = document.getElementById('msgBox');
+				var pA = document.getElementsByClassName('aPage');
+				$(function () {
+					$.ajax({
+						type:'post',
+						url:'/index/user/getMsg?whoID=' + {$whoID},
+						data:{
+							page:1,
+						},
+						dataType:'json',
+						async:true,
+						success:success
+					});
+
+				});
+
+				function success(data)
+				{
+					mBox.innerHTML = '';
+					var obj = JSON.parse(data);
+					console.log(obj);
+					// 开始留言遍历展示
+					for (var i =  0; i < obj['liuyan'].length; i++) {
+						// 添加第一层标签
+						var lDiv = document.createElement('div');
+						lDiv.className = 'media';
+						$(lDiv).css({
+							'box-shadow': '0px 0 2px #C1C1C1',
+							'padding': '5px',
+							'margin-top': '2em',
+							'margin-bottom': '2em',
+						});
+						mBox.appendChild(lDiv);
+						// 添加第二层标签
+						var mH5 = document.createElement('h5');
+						$(mH5).html(obj['liuyan'][i]['name']);
+						$(mH5).css({
+							'font-size': '14px',
+							'margin':0,
+							'color':'#21DEEF',
+							'font-weight':'bolder',
+						});
+						var mSpan = document.createElement('span');
+						$(mSpan).html(obj['liuyan'][i]['create_time']);
+						$(mSpan).css({
+							'background-color': '#f7f7f7',
+						});
+						var mDiv = document.createElement('div');
+						mDiv.className = 'media-left';
+						var mDiv1 = document.createElement('div');
+						mDiv1.className = 'media-body';
+						lDiv.appendChild(mH5);
+						lDiv.appendChild(mSpan);
+						lDiv.appendChild(mDiv);
+						lDiv.appendChild(mDiv1);
+						// 添加第三层标签
+						var sA = document.createElement('a');
+						var sP = document.createElement('p');
+						sA.href = '/index/user/showMsg?whoID=' + obj['liuyan'][i]['user_id'];
+						$(sP).html(obj['liuyan'][i]['content']);
+						mDiv.appendChild(sA);
+						mDiv1.appendChild(sP);
+						// 添加第四层标签
+						var sImg = document.createElement('img');
+						sImg.src = obj['liuyan'][i]['photo'];
+						$(sImg).css({
+							'width': '65px',
+							'height': '65px'
+						});
+						sA.appendChild(sImg);
+						// 完成-留言遍历展示	
+					}
+
+					// 把allpage的链接赋值到a标签上
+					var oPage = obj['pages'];
+					var i = 0;
+					for (var name in oPage) {
+						pA[i].href = 'javascript:test(\'' + oPage[name] + '\')';
+						i++;
+					}
+				}	
+				function test(url)
+				{
+					$.ajax({
+						type:'get',
+						url:url,
+						async:true,
+						data:null,
+						dataType:'json',
+						success:success
+					});
+				}
+			</script>
+			<!-- 完成-展示留言的方法 -->
+			<!-- 完成-留言展示区 -->
+
+			
+			
+		</div>
+	</div>
+	{/block}
+</body>
+</html>

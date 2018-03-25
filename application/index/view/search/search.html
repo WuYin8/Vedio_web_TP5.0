@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<!-- 
+	网站搜索页面展示搜索到的信息，展示两方面，频道和视频，视频采用ajax分页
+ -->
+<html>
+<head>
+	<title>{block name="title"}站内搜索-爱闪视频网{/block}</title>
+	<meta charset="utf-8"/>
+</head>
+<body>
+	{extend name="layoutOther"}
+	{block name="showBody"}
+	<!-- 视频展示页面 -->
+	<div class="main-grids">
+		<div class="top-grids">
+			<!-- 搜索结果 -->
+			<p class="glyphicon glyphicon-blackboard" style="font-size: 30px;background-color: #f7f7f7;50px; width: 100%; padding: 10px 0 10px 10px; box-shadow: 2px 2px 2px #cdcdcd;">&nbsp;"{$sWord}"的搜索结果</p>
+			<!-- 搜索频道名称 -->
+			<div class="recommended-info" style="margin: 10px 0 20px 0;color:#ED62ED;font-size: 20px;">
+			频道搜索结果：
+			{if empty($class)}
+			<p style="color: black; font-size: 1rem;">找不到对应的频道╮(╯▽╰)╭</p>
+			{else if}
+			{foreach $class as $vClass}
+					<button class="btnClass" id="{$vClass['id']}">{$vClass['name']}</button>
+			{/foreach}
+			{/if}
+			<hr />
+			</div>
+			<!-- 频道跳转方法 -->
+			<script type="text/javascript">
+				$('.btnClass').css({
+					'background-color': '#ED62ED',
+					'border': 'none',
+					'color':'white',
+					'border-radius':'5px',
+				});
+				$('.btnClass').click(function() {
+					var goID = $(this).attr('id');
+					$(location).prop('href', "/index/index/class?cid=" + goID);
+				});
+			</script>
+			<!-- 子版块视频展示 -->
+			<div class="boxTop3 show">
+				<p style="color:#ED62ED;font-size: 20px;">视频搜索结果：</p>
+				<div id="showBox"></div>
+				<div class="clearfix"> </div>
+			</div>
+			<!-- 完成-子版块视频展示 -->
+			<!-- 分页区 -->
+			<div class="pages">
+				<a href ="" class="aPage">首页</a>
+				<a href ="" class="aPage">前页</a>
+				<a href ="" class="aPage">后页</a>
+				<a href ="" class="aPage">尾页</a>
+			</div>
+			<style type="text/css">
+				.pages {
+					margin-top: 10px;
+					position: relative;
+					left: 42%;
+				}
+				.pages a {
+					font-size: 16px;
+					text-decoration: none;
+					color: #ED62ED;
+					margin-left: 10px;
+				}
+				.pages a:hover {
+					color: #cdcdcd;
+				}		
+			</style>
+			<!-- 完成-分页区 -->
+			<script type="text/javascript">
+				var pA =document.getElementsByClassName('aPage');
+				$('.slider-top-grids').fadeIn('300');
+				$.ajax({
+					type:'post',
+					url:'/index/search/getVideo',
+					data:null,
+					dataType:'json',
+					async:true,
+					success:success
+				});
+				function success(data)
+				{
+					var obj = JSON.parse(data);
+					console.log(obj);
+					var oBox = document.getElementById('showBox');
+					if (obj['data'] == 'no') {
+						$(oBox).html('找不到对应的视频╮(╯▽╰)╭');
+						return false;
+					}
+					$(oBox).html('');
+					// 开始视频遍历展示
+					for (var i = 0; i < obj['data'].length; i++) {
+						// 添加第一层标签
+						var aDiv = document.createElement('div');
+						aDiv.className = 'col-md-3 resent-grid recommended-grid slider-top-grids';
+						$(aDiv).css({
+							'margin-bottom': '30px',
+						});
+						oBox.appendChild(aDiv);
+						// 添加下层标签
+						var str = 
+						"<div class='resent-grid-img recommended-grid-img'>" +
+							"<a href='/index/single/single?vid=" + obj['data'][i]['id'] +"'><img src='http://p3d4qx20z.bkt.clouddn.com/"+ obj['data'][i]['pic'] +  "' alt='' style='box-shadow: 2px 2px 2px #C1C1C1;' /></a>" +
+							"<div class='clck'>" +
+								"<span class='glyphicon glyphicon-time' aria-hidden='true'>" + obj['data'][i]['time_long'] + "</span>" +
+							"</div>" +
+						"</div>" +
+						"<div class='resent-grid-info recommended-grid-info'>" +
+							"<h3 style='height: 25px;''><a href='/index/single/single?vid=" + obj['data'][i]['id'] + "' class='title title-info'>" + obj['data'][i]['title'] + "</a></h3>" +
+							"<ul>" +
+								"<li><p class='author author-info'><a class='author'>" + obj['data'][i]['up_name'] + "</a></p></li>" +
+								"<li class='right-list'><p class='views views-info'>" + obj['data'][i]['click_num'] / 2 + "次浏览</p></li>" +
+							"</ul>" +
+						"</div>" ;
+						aDiv.innerHTML = str;
+					}
+
+					// 把allpage的链接赋值到a标签上
+					var oPage = obj['pages'];
+					var i = 0;
+					for (var name in oPage) {
+						pA[i].href = 'javascript:test(\'' + oPage[name] + '\')';
+						i++;
+					}
+				}
+
+				function test(url)
+				{
+					$.ajax({
+						type:'get',
+						url:url,
+						async:true,
+						data:null,
+						dataType:'json',
+						success:success
+					});
+				}
+			
+			</script>
+		</div>
+
+	</div>
+	<!-- 完成-视频展示页面 -->
+	{/block}
+</body>
+</html>

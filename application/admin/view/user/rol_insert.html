@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<!-- saved from url=(0062)http://www.17sucai.com/preview/642854/2016-10-29/2/inbox.html# -->
+<html style="overflow: hidden;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>后台管理</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="keywords" content="">
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!-- Bootstrap Core CSS -->
+<link href="/static/css1/bootstrap.min.css" rel="stylesheet" type="text/css">
+<!-- Custom CSS -->
+<link href="/static/css1/style.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="/static/css1/morris.css" type="text/css">
+<!-- Graph CSS -->
+<link href="/static/css1/font-awesome.css" rel="stylesheet"> 
+<!-- jQuery -->
+<script src="/static/js/jquery-2.1.4.min.js"></script>
+<!-- //jQuery -->
+<link href="/static/css1/css" rel="stylesheet" type="text/css">
+<link href="/static/css1/css(1)" rel="stylesheet" type="text/css">
+<!-- lined-icons -->
+<link rel="stylesheet" href="/static/css1/icon-font.min.css" type="text/css">
+<script type="text/javascript" src="/static/js/jquery-1.11.3.min.js"></script>
+<!-- //lined-icons -->
+</head> 
+<body>
+   <div class="page-container">
+   <!--/content-inner-->
+<div class="left-content">
+	 <div class="mother-grid-inner">
+             <!--header start here-->
+				<div class="header-main fixed">
+					<div class="logo-w3-agile">
+								<h1><a href="/admin/user/index">首页展示</a></h1>
+							</div>
+					
+						 <div class="w3layouts-right" style="margin-left:100px;margin-top: 5px">
+							<div class="profile_details_left"><!--notifications of menu start -->
+								<ul class="nofitications-dropdown">
+									<li class="dropdown head-dpdn">
+										
+										<ul class="dropdown-menu">
+											
+											
+											
+										</ul>
+									</li>
+									
+									<li class="dropdown head-dpdn">奔跑吧！青春</li>
+									
+									<div class="clearfix"> </div>
+
+								</ul>
+								<div class="clearfix"> </div>
+							</div>
+							</div>
+							<!--notification menu end -->
+							
+							<div class="clearfix"> </div>				
+						</div>
+						<div class="profile_details w3l" style="float:right;margin-top:-85px;margin-right: 10px">	
+
+								<ul>
+									<li class="dropdown profile_details_drop">
+										<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+											<div class="profile_img">	
+												<span class="prfil-img"><img src="/static/images/in4.jpg" alt=""> </span> 
+												<div class="user-name">
+													
+													<span>管理员</span>
+												</div>
+												<i class="fa fa-angle-down"></i>
+												<i class="fa fa-angle-up"></i>
+												<div class="clearfix"></div>	
+											</div>	
+										</a>
+										<ul class="dropdown-menu drp-mnu">
+											
+											<li> <a href="logout"><i class="fa fa-sign-out"></i>Logout</a> </li>
+										</ul>
+									</li>
+								</ul>
+							</div>
+							
+				     <div class="clearfix"> </div>	
+				</div>
+				
+
+<!--heder end here-->
+
+	<ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="">展示内容</a></li>
+            </ol>
+
+	
+<!-- tab content -->
+	<div class="container" style="margin-left:-20px; width:1035px;">
+<div class="x-body">
+            <form action="" method="post" class="layui-form layui-form-pane">
+                <div class="layui-form-item">
+                    <label for="name" class="layui-form-label">
+                        <span class="x-red">*</span>角色名
+                    </label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="name" name="name" required="" lay-verify="required" value="" 
+                        autocomplete="off" class="form-control">
+                    </div>
+                </div>
+                <div class="layui-form-item layui-form-text">
+                    <label class="layui-form-label">
+                        选择权限
+                    </label>
+                    <table  class="layui-table layui-input-block">
+                        <tbody>
+                        <!-- <input type="hidden" value="" name="hid"/> -->
+                            <tr>
+                                <td>
+                                    <div class="layui-input-block">
+                                        {foreach $all as $v}
+                                           <span >{$v['auth_name']}</span>
+                                           <input name="id"  type="checkbox" value="{$v['authid']}"/>
+
+                                                
+                                         {/foreach}
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="layui-form-item">
+                <!-- <button class="layui-btn" id="addbtn" lay-submit="" lay-filter="save">保存</button> -->
+                <input type="button" class="btn btn-default" value="保存" id="addbtn" style="margin-top: 20px;" />
+              </div>
+            </form>
+
+        </div>
+        </div>    
+      <script src="/static/js/layui.js" charset="utf-8">
+        </script>
+        <script src="/static/js/x-layui.js" charset="utf-8"></script> 
+         <script>
+            layui.use(['form','layer'], function(){
+                $ = layui.jquery;
+              var form = layui.form()
+              ,layer = layui.layer;
+
+              //监听提交
+              form.on('submit(save)', function(data){
+                console.log(data);
+                //发异步，把数据提交给php
+                layer.alert("添加成功", {icon: 6},function () {
+                    // 获得frame索引
+                    // var index = parent.layer.getFrameIndex(window.name);
+                    // //关闭当前frame
+                    layer.msg('添加成功!',{icon:1,time:1000});
+                    // parent.layer.close(index);
+                });
+                return false;
+              });
+              
+              
+            });
+        </script>
+        <script type="text/javascript">
+
+         var id=[];
+
+        $('#addbtn').click(function(){
+            var name=$('[name=name]').val();
+            // alert(hid);
+            console.log(name);
+            $("input[name='id']:checked").each(function(){
+           // var check = [];
+            id.push($(this).val());
+                // alert(id); 
+                });
+             arr = id.join(',');
+            // var_dump(arr);
+             $.ajax({
+                    type:'post',
+                    url:'/admin/user/doaddrole',
+                    dataType:'json',
+                    async:true,
+                    data:{arr:arr,name:name},
+                    success:success
+
+             });
+            
+             function success(data){
+                    if(data.status){
+                        alert(data.msg);
+                    }
+             }
+             // alert(arr);
+        });
+         // arr = id.join(',');
+     </script>
+
+		
+
+               
+			
+          
+       
+		<!-- /script-for sticky-nav -->
+<!--inner block start here-->
+<div class="inner-block">
+
+</div>
+<!--inner block end here-->
+<!--copy rights start here-->
+	
+<!--COPY rights end here-->
+</div>
+</div>
+  <!--//content-inner-->
+		<!--/sidebar-menu-->
+				<div class="sidebar-menu">
+					<header class="logo1">
+						<a href="#" class="sidebar-icon"> <span class="fa fa-bars"></span> </a> 
+					</header>
+
+						<div style="border-top:1px ridge rgba(255, 255, 255, 0.15)"></div>
+                           <div class="menu">
+								
+									<ul id="menu">
+										
+										
+										 <li id="menu-academico">
+										
+									 <a href="#"><i class="fa fa-list-ul" aria-hidden="true"></i>
+									 <span>用户管理</span> <span class="fa fa-angle-right" style="float: right"></span>
+									
+										
+									 <div class="clearfix"></div></a>
+										   <ul id="menu-academico-sub">
+										   <li id="menu-academico-avaliacoes"><a href="/admin/user/index">用户信息</a></li>
+										  
+											<li id="menu-academico-avaliacoes"><a href="">上传视频列表</a></li>
+											
+											<li id="menu-academico-avaliacoes"><a href="">权限等级</a></li>
+											<li id="menu-academico-avaliacoes"><a href="">禁言列表</a></li>
+											<li id="menu-academico-avaliacoes"><a href="">禁止上传视频的列表</a></li>
+											<li id="menu-academico-avaliacoes"><a href="">拉黑列表</a></li>
+										  </ul>
+										</li>
+										 <li id="menu-academico">
+										
+									 <a href="#"><i class="fa fa-list-ul" aria-hidden="true"></i>
+									 <span>管理员管理</span> <span class="fa fa-angle-right" style="float: right"></span>
+									
+										
+									 <div class="clearfix"></div></a>
+										   <ul id="menu-academico-sub">
+										    <li id="menu-academico-avaliacoes"><a href="/admin/user/gly">管理角色</a></li>
+										  
+											<li id="menu-academico-avaliacoes"><a href="">角色管理</a></li>
+											
+											<li id="menu-academico-avaliacoes"><a href="">权限管理</a></li>
+											
+										  </ul>
+										</li>
+
+									<li id="menu-academico">
+									 <a href="#"><i class="fa fa-list-ul" aria-hidden="true"></i>
+									 <span>
+									 	视频管理
+									 </span> <span class="fa fa-angle-right" style="float: right"></span>
+									 <div class="clearfix"></div></a>
+										   <ul id="menu-academico-sub">
+										   <li id="menu-academico-avaliacoes"><a href="">
+										   	基本信息
+										   </a></li>
+										   <li id="menu-academico-avaliacoes"><a href="">
+										   播放展示页面
+										   </a></li>
+											
+										  </ul>
+										</li>
+
+
+											 <li id="menu-academico">
+									 <a href="#"><i class="fa fa-list-ul" aria-hidden="true"></i>
+									 <span>板块管理</span> <span class="fa fa-angle-right" style="float: right"></span>
+									 <div class="clearfix"></div></a>
+										   <ul id="menu-academico-sub">
+										   <li id="menu-academico-avaliacoes"><a href="">展示父级板块</a></li>
+											<li id="menu-academico-avaliacoes"><a href="">展示子级板块</a></li>
+											
+										  </ul>
+										</li>
+
+											 <li id="menu-academico">
+									 <a href="#"><i class="fa fa-list-ul" aria-hidden="true"></i>
+									 <span>展示管理</span> <span class="fa fa-angle-right" style="float: right"></span>
+									 <div class="clearfix"></div></a>
+										   <ul id="menu-academico-sub">
+										   <li id="menu-academico-avaliacoes"><a href="">推荐视频</a></li>
+											<li id="menu-academico-avaliacoes"><a href="">排行版展示</a></li>
+											<li id="menu-academico-avaliacoes"><a href="">收藏视频展示</a></li>
+										  </ul>
+										</li>
+
+											 
+											 <li id="menu-academico">
+									 <a href="#"><i class="fa fa-list-ul" aria-hidden="true"></i>
+									 <span>文本管理</span> <span class="fa fa-angle-right" style="float: right"></span>
+									 <div class="clearfix"></div></a>
+										   <ul id="menu-academico-sub">
+										   <li id="menu-academico-avaliacoes"><a href="/admin/report/report">评论</a></li>
+										   <li id="menu-academico-avaliacoes"><a href="/admin/hreport/report">评论回收站</a></li>
+											<li id="menu-academico-avaliacoes"><a href="">弹幕</a></li>
+											<li id="menu-academico-avaliacoes"><a href="">消息</a></li>
+										  </ul>
+										</li>
+
+										 <li id="menu-academico">
+									 <a href="/admin/liuyan/liuyan"><i class="fa fa-list-ul" aria-hidden="true"></i>
+									 <span>留言管理</span> <span class="fa fa-angle-right" style="float: right"></span>
+									 <div class="clearfix"></div></a>
+										   <ul id="menu-academico-sub">
+										   <li id="menu-academico-avaliacoes"><a href="/admin/liuyan/liuyan">留言展示</a></li>
+											<li id="menu-academico-avaliacoes"><a href="/admin/reply/reply">版主回复留言展示</a></li>
+											
+										  </ul>
+										</li>
+										</ul>
+								</div>
+
+							  </div>
+							  <div class="clearfix"></div>		
+							</div>
+							<script type="text/javascript";>
+							var toggle = true;
+										
+							$(".sidebar-icon").click(function() {                
+							  if (toggle)
+							  {
+								$(".page-container").addClass("sidebar-collapsed").removeClass("sidebar-collapsed-back");
+								$("#menu span").css({"position":"absolute"});
+							  }
+							  else
+							  {
+								$(".page-container").removeClass("sidebar-collapsed").addClass("sidebar-collapsed-back");
+								setTimeout(function() {
+								  $("#menu span").css({"position":"relative"});
+								}, 400);
+							  }
+											
+											toggle = !toggle;
+										});
+							</script>
+<!--js -->
+<script src="/static/js/jquery.nicescroll.js"></script>
+<script src="/static/js/scripts.js"></script><div id="ascrail2000" class="nicescroll-rails" style="width: 6px; z-index: 1000; background: rgb(255, 255, 255); cursor: default; position: fixed; top: 0px; height: 100%; right: 0px; opacity: 0;"><div style="position: relative; top: 0px; float: right; width: 6px; height: 224px; background-color: rgb(27, 147, 225); border: 0px; background-clip: padding-box; border-radius: 10px;"></div></div><div id="ascrail2000-hr" class="nicescroll-rails" style="height: 6px; z-index: 1000; background: rgb(255, 255, 255); position: fixed; left: 0px; width: 100%; bottom: 0px; cursor: default; opacity: 0; display: none;"><div style="position: relative; top: 0px; height: 6px; width: 1280px; background-color: rgb(27, 147, 225); border: 0px; background-clip: padding-box; border-radius: 10px;"></div></div>
+<!-- Bootstrap Core JavaScript -->
+   <script src="/static/js/bootstrap.min.js"></script>
+   <!-- /Bootstrap Core JavaScript -->	   
+
+
+</body></html>

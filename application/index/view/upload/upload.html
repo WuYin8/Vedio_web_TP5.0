@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{block name="title"}视频上传-爱闪视频网{/block}</title>
+	<meta charset="utf-8"/>
+</head>
+<body>
+	{extend name="layoutOther"}
+	{block name="showBody"}
+	<style type="text/css">
+		.msgBox {
+			background-color: #F3F3F3;
+			box-shadow: 2px 2px 2px #C1C1C1;
+			margin: 50px ; 
+			padding: 70px 80px 70px 80px;
+			text-align: left;
+			min-width: 500px;
+		}
+		.form-group {
+			font-size: 2em;
+			text-align: left;
+			margin-top: 15px;
+		}
+		.form-control-input {
+			margin-top: 10px;
+		}
+		#btn{  
+		        border: 1px solid #CCC;  
+		        width: 100px;  
+		        height: 100px;  
+		        font-size: 55px;
+		        border-radius: 10px;
+		        display: block;
+		        color: white;
+			background-color: #c8c8c8;
+		}
+		 .ac_file{  
+		        width: 100px;  
+		        height: 100px;  
+		        position: relative; 
+		        top: -100px;  
+		        cursor: pointer;  
+		        opacity: 0;  
+		}
+		#btnUp {
+			width: 150px;
+			height: 40px;
+			line-height: 30px;
+			font-size: 20px;
+			color: white;
+			background-color: #ED62ED;
+			border: 0;
+			margin-left: 41%;
+			position: relative;
+			top: -60px;
+		}
+		#btnMsg {
+			font-size: 14px;
+			margin-left: 5px;
+		}
+	</style>
+		<div class="show-top-grids">
+			<div class="msgBox">
+				<form method="post" action="http://upload-z1.qiniup.com/" enctype="multipart/form-data">
+					<div class="form-group">
+					    <label>视频标题</label> <small id="msgTitle">标题长度不得超过20个字符</small>
+					    <input type="text" class="form-control form-control-input" id="inputTitle" maxlength="20" placeholder="在此填写视频标题">
+					 </div>
+					<div class="form-group">
+					    <label>视频标签</label> <small id="msgLabel">最多填写五个标签，标签长度不得超过6个字符</small>
+					    <input type="text" class="form-control form-control-input" id="inputLabel1" maxlength="6" placeholder="标签1">
+					    <input type="text" class="form-control form-control-input" id="inputLabel2" maxlength="6" placeholder="标签2">
+					    <input type="text" class="form-control form-control-input" id="inputLabel3" maxlength="6" placeholder="标签3">
+					    <input type="text" class="form-control form-control-input" id="inputLabel4" maxlength="6" placeholder="标签4">
+					    <input type="text" class="form-control form-control-input" id="inputLabel5" maxlength="6" placeholder="标签5">
+					 </div>
+					 <div class="form-group">
+					    <label>视频描述</label> 
+					    <textarea class="form-control form-control-input" rows="4" placeholder="在此填写视频描述" id="inputWord"></textarea>
+					 </div>
+					 <div class="form-group"><label>所属版块</label></div>
+					 <div class="form-group">
+					    <!-- 此处需要遍历 -->
+					   	<select class="form-control form-control-input" id="inputSelect1" style="width: 45%; float: left; position: relative; top: -10px; margin-right: 10%;">
+					   	{foreach $classBig as $vBig}
+						  	<option value="{$vBig['id']}">{$vBig['name']}</option>
+						{/foreach}
+						</select>
+					   	<select class="form-control form-control-input" id="inputSelect2"  style="width: 45%; float: left; position: relative; top: -10px;">
+						  <option ></option>
+						</select>
+					 </div>
+					 <div class="form-group" style="padding-top: 55px;"><label>选择视频</label></div>
+				<!-- 七牛云需要的上传 -->
+					  <input name="token" type="hidden" value="{$token}"/>
+					  <input name="accept" type="hidden"/>
+					<button id="btn" class="glyphicon glyphicon-folder-open"></button>
+					<span id="btnMsg">选择视频文件</span>
+					<!-- 更改上传文件按钮样式 -->
+					  <input  name="file" type="file" id="fileUp"  class="ac_file" "/>
+					  <input type="submit" value="上传" id="btnUp"/>
+				</form>
+			</div>
+		</div>
+	<script type="text/javascript">
+		$(function () {
+			// 上传按钮，鼠标覆盖，变色
+			$('#btn').mouseover(function() {
+				$(this).css({
+					'color': '#272C2E',
+					'background-color': 'white',
+					'border': '2px solid #CDCDCD'
+				});
+			});
+			$('#btn').mouseout(function() {
+				$(this).css({
+					'color': 'white',
+					'background-color': '#c8c8c8',
+					'border': '0'
+				});
+			});
+			// 根据大选项卡的值调整小选项卡，需要用ajax遍历
+			$('#inputSelect1').click(function() {
+				bigSelect = $(this).val();
+				$('#inputSelect2').empty();
+				{foreach $classBig as $vBig}
+					if (bigSelect == {$vBig['id']}) {
+						{foreach $classSmall as $vSmall}
+						{if $vSmall['pid'] == $vBig['id']}
+							$('#inputSelect2').append('<option value=' + {$vSmall['id']} + '>' + '{$vSmall['name']}' + '</option>');
+							
+						{/if}
+						{/foreach}
+					}
+				{/foreach}
+			});
+		});
+		// 点击上传视频前，判断需要的信息是否符合要求
+		$('#btnUp').on('click', function() {
+			// 输入标题的内容
+			inputTitle = $('#inputTitle').val();
+			// 输入标签的内容
+			inputLabel1 = $('#inputLabel1').val();
+			inputLabel2 = $('#inputLabel2').val();
+			inputLabel3 = $('#inputLabel3').val();
+			inputLabel4 = $('#inputLabel4').val();
+			inputLabel5 = $('#inputLabel5').val();
+			// 输入简介的内容
+			inputWord = $('#inputWord').val();
+			// 选择版块的内容
+			inputSelect = $('#inputSelect2').val();
+			msgTitle = $('#msgTitle');
+			msgLabel = $('#msgLabel');
+			msgTitle.css('color', 'black');
+			msgLabel.css('color', 'black');
+			if (inputTitle.length == 0) {
+				msgTitle.html('视频标题不能为空');
+				msgTitle.css('color', 'red');
+				alert('视频标题不能为空');
+				return false;
+			}
+			if (inputTitle.length > 20) {
+				msgTitle.html('视频标题长度不得超过20个字符');
+				msgTitle.css('color', 'red');
+				alert('视频标题长度不得超过20个字符');
+				return false;
+			}
+			if (inputLabel1.length > 6 || inputLabel2.length > 6 || inputLabel3.length > 6 || inputLabel4.length > 6 || inputLabel5.length > 6) 
+			{
+				msgTitle.html('标签长度不得超过6个字符');
+				msgTitle.css('color', 'red');标签长度不得超过6个字符
+				alert('标签长度不得超过6个字符');
+				return false;
+			}
+			if (inputSelect.length == 0) {
+				alert('上传频道未选择');
+				return false;
+			}
+			// 前台确认格式完成后，点击上传按钮，显示上传中……
+			$(this).val('正在上传…');
+			// 视频相关数据，提交到后台时，先存入cookie，等待七牛云存储完毕，从七牛云的页面跳转回来之后，在执行存入数据库的操作，之后无论存入数据库成功与否，都要销毁这几个cookie
+			$.ajax({
+				type:'post',
+				dataType:'json',
+				url:'/index/upload/getCookie',
+				data:{
+					vName:inputTitle,
+					vLabel1:inputLabel1,
+					vLabel2:inputLabel2,
+					vLabel3:inputLabel3,
+					vLabel4:inputLabel4,
+					vLabel5:inputLabel5,
+					vWord:inputWord,
+					vSelect:inputSelect
+				},
+				async:true,
+				success:success
+			});
+			function success(data)
+			{
+				
+			}
+			// return false;
+		});
+	</script>
+	{/block}
+</body>
+</html>

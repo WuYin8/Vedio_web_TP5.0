@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<!-- 
+	网站信息页面用以展示公告，友情链接，联系我们等
+ -->
+<html>
+<head>
+	<title>{block name="title"}站内公告-爱闪视频网{/block}</title>
+	<meta charset="utf-8"/>
+</head>
+<body>
+	{extend name="layoutOther"}
+	{block name="showBody"}
+	<style type="text/css">
+		.msgBox {
+			background-color: #F3F3F3;
+			margin: 50px ; 
+			padding: 100px 80px 100px 80px;
+			text-align: left;
+			box-shadow: 2px 2px 2px #C1C1C1;
+		}
+		.msg {
+			font-size: 40px;
+			margin-bottom: 50px;
+			color: #ED62ED;
+		}
+		.msgUrl {
+			font-size: 2em;
+		}
+		.timer a {
+			text-decoration: none;
+			margin: 10px auto;
+			color: #21DEEF;
+		}
+		.timer {
+			font-size: 3em;
+		}
+		.timer small {
+			color: #6d6d6d;
+			padding-left: 40px;
+		}
+	</style>
+		<div class="show-top-grids">
+			<div class="msgBox" id="aboutUs">
+				<div class="msg">关于我们</div>
+				<div class="timer">爱闪视频网为各位提供最新，最全的优质视频，我们希望在爱闪视频网中，无论是浏览视频的会员，还是投递视频的UP主，都能获得属于自己的乐趣。我们也愿意同各位，一齐将爱闪视频网打造成一个更好的视频网站。</div>
+			</div>
+			<div class="msgBox" id="joinUs">
+				<div class="msg">加入我们</div>
+				<div class="timer">爱闪视频网目前还处于一个初期的成长阶段，急需一些有管理经验的朋友加入我们，如果您有此方面的意向，同时热爱视频社区交流，可以在我们的管理员的留言板下留言，或者直接发送邮件到我们的邮箱地址：wuyinzw@outlook.com。</div>
+			</div>
+			<div class="msgBox" id="friendLink">
+				<div class="msg">友情链接</div>
+				<div class="timer">
+					<a href="http://www.clwub.xin">若游所思-个人博客</a><br /><small>---关于游戏评测与感想的一个个人博客</small><br /><br />
+					<a href="http://www.baidu.com">百度一下，你就知道</a><br /><small>---遇到什么不会的，先去百度一下</small><br /><br />
+					<a href="http://news.163.com">网易新闻，有态度的新闻</a><br /><small>---多看新闻，看好新闻</small><br /><br />
+					<a href="http://weibo.com">新浪微博</a><br /><small>---上微博，发现新鲜事</small>
+				</div>
+			</div>
+			<div class="msgBox" id="official">
+				<div class="msg">官方认证</div>
+				<div class="timer">想成为爱闪视频网的管理员？或者其他心爱的称谓？没问题！在我们的管理员的留言板下留言，或者直接发送邮件到我们的邮箱地址：wuyinzw@outlook.com，保证快速认证，为您开启全新的大门。</div>
+			</div>
+			<div class="msgBox" id="callUs">
+				<div class="msg">联系我们</div>
+				<div class="timer">我们的邮箱地址：wuyinzw@outlook.com，如果您有什么需要解决的问题、在访问网站中产生了疑惑、或者有什么建议，都可以直接发送邮件到我们的邮箱，我们会第一时间查看并回复，感谢各位对爱闪视频网的支持。</div>
+			</div>
+		</div>
+	{/block}
+</body>
+</html>

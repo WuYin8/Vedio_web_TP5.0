@@ -1,0 +1,350 @@
+---------------------------------------------------------------
+[ 2018-03-15T04:26:06+08:00 ] 106.11.227.59 GET /
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000464s ] mysql:host=localhost;dbname=dbvedio;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `vedio_sqlclass` [ RunTime:0.000597s ]
+[ sql ] [ SQL ] SELECT * FROM `vedio_sqlclass` WHERE  `pid` = 0  AND `status` = 1 [ RunTime:0.000157s ]
+[ sql ] [ EXPLAIN : array (
+  'id' => 1,
+  'select_type' => 'SIMPLE',
+  'table' => 'vedio_sqlclass',
+  'type' => 'ALL',
+  'possible_keys' => NULL,
+  'key' => NULL,
+  'key_len' => NULL,
+  'ref' => NULL,
+  'rows' => 19,
+  'extra' => 'Using where',
+) ]
+[ sql ] [ SQL ] SELECT * FROM `vedio_sqlclass` WHERE  `pid` > 0  AND `status` = 1 [ RunTime:0.000124s ]
+[ sql ] [ EXPLAIN : array (
+  'id' => 1,
+  'select_type' => 'SIMPLE',
+  'table' => 'vedio_sqlclass',
+  'type' => 'ALL',
+  'possible_keys' => NULL,
+  'key' => NULL,
+  'key_len' => NULL,
+  'ref' => NULL,
+  'rows' => 19,
+  'extra' => 'Using where',
+) ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `vedio_res` [ RunTime:0.000490s ]
+[ sql ] [ SQL ] SELECT * FROM `vedio_res` [ RunTime:0.000210s ]
+[ sql ] [ EXPLAIN : array (
+  'id' => 1,
+  'select_type' => 'SIMPLE',
+  'table' => 'vedio_res',
+  'type' => 'ALL',
+  'possible_keys' => NULL,
+  'key' => NULL,
+  'key_len' => NULL,
+  'ref' => NULL,
+  'rows' => 127,
+  'extra' => '',
+) ]
+[ sql ] [ SQL ] SELECT * FROM `vedio_res` WHERE  `id` = 11 [ RunTime:0.000140s ]
+[ sql ] [ EXPLAIN : array (
+  'id' => 1,
+  'select_type' => 'SIMPLE',
+  'table' => 'vedio_res',
+  'type' => 'const',
+  'possible_keys' => 'PRIMARY',
+  'key' => 'PRIMARY',
+  'key_len' => '4',
+  'ref' => 'const',
+  'rows' => 1,
+  'extra' => '',
+) ]
+[ sql ] [ SQL ] SELECT * FROM `vedio_res` WHERE  `id` = 16 [ RunTime:0.000123s ]
+[ sql ] [ EXPLAIN : array (
+  'id' => 1,
+  'select_type' => 'SIMPLE',
+  'table' => 'vedio_res',
+  'type' => 'const',
+  'possible_keys' => 'PRIMARY',
+  'key' => 'PRIMARY',
+  'key_len' => '4',
+  'ref' => 'const',
+  'rows' => 1,
+  'extra' => '',
+) ]
+[ sql ] [ SQL ] SELECT * FROM `vedio_res` WHERE  `id` = 20 [ RunTime:0.000145s ]
+[ sql ] [ EXPLAIN : array (
+  'id' => 1,
+  'select_type' => 'SIMPLE',
+  'table' => 'vedio_res',
+  'type' => 'const',
+  'possible_keys' => 'PRIMARY',
+  'key' => 'PRIMARY',
+  'key_len' => '4',
+  'ref' => 'const',
+  'rows' => 1,
+  'extra' => '',
+) ]
+[ sql ] [ SQL ] SELECT * FROM `vedio_res` WHERE  `id` = 24 [ RunTime:0.000206s ]
+[ sql ] [ EXPLAIN : array (
+  'id' => 1,
+  'select_type' => 'SIMPLE',
+  'table' => 'vedio_res',
+  'type' => 'const',
+  'possible_keys' => 'PRIMARY',
+  'key' => 'PRIMARY',
+  'key_len' => '4',
+  'ref' => 'const',
+  'rows' => 1,
+  'extra' => '',
+) ]
+[ sql ] [ SQL ] SELECT * FROM `vedio_res` WHERE  `id` = 43 [ RunTime:0.000121s ]
+[ sql ] [ EXPLAIN : array (
+  'id' => 1,
+  'select_type' => 'SIMPLE',
+  'table' => 'vedio_res',
+  'type' => 'const',
+  'possible_keys' => 'PRIMARY',
+  'key' => 'PRIMARY',
+  'key_len' => '4',
+  'ref' => 'const',
+  'rows' => 1,
+  'extra' => '',
+) ]
+[ sql ] [ SQL ] SELECT * FROM `vedio_res` WHERE  `id` = 52 [ RunTime:0.000126s ]
+[ sql ] [ EXPLAIN : array (
+  'id' => 1,
+  'select_type' => 'SIMPLE',
+  'table' => 'vedio_res',
+  'type' => 'const',
+  'possible_keys' => 'PRIMARY',
+  'key' => 'PRIMARY',
+  'key_len' => '4',
+  'ref' => 'const',
+  'rows' => 1,
+  'extra' => '',
+) ]
+[ sql ] [ SQL ] SELECT * FROM `vedio_res` WHERE  `id` = 57 [ RunTime:0.000140s ]
+[ sql ] [ EXPLAIN : array (
+  'id' => 1,
+  'select_type' => 'SIMPLE',
+  'table' => 'vedio_res',
+  'type' => 'const',
+  'possible_keys' => 'PRIMARY',
+  'key' => 'PRIMARY',
+  'key_len' => '4',
+  'ref' => 'const',
+  'rows' => 1,
+  'extra' => '',
+) ]
+[ sql ] [ SQL ] SELECT * FROM `vedio_res` WHERE  `id` = 76 [ RunTime:0.000142s ]
+[ sql ] [ EXPLAIN : array (
+  'id' => 1,
+  'select_type' => 'SIMPLE',
+  'table' => 'vedio_res',
+  'type' => 'const',
+  'possible_keys' => 'PRIMARY',
+  'key' => 'PRIMARY',
+  'key_len' => '4',
+  'ref' => 'const',
+  'rows' => 1,
+  'extra' => '',
+) ]
+[ sql ] [ SQL ] SELECT * FROM `vedio_res` WHERE  `id` = 81 [ RunTime:0.000118s ]
+[ sql ] [ EXPLAIN : array (
+  'id' => 1,
+  'select_type' => 'SIMPLE',
+  'table' => 'vedio_res',
+  'type' => 'const',
+  'possible_keys' => 'PRIMARY',
+  'key' => 'PRIMARY',
+  'key_len' => '4',
+  'ref' => 'const',
+  'rows' => 1,
+  'extra' => '',
+) ]
+[ sql ] [ SQL ] SELECT * FROM `vedio_res` WHERE  `id` = 82 [ RunTime:0.000121s ]
+[ sql ] [ EXPLAIN : array (
+  'id' => 1,
+  'select_type' => 'SIMPLE',
+  'table' => 'vedio_res',
+  'type' => 'const',
+  'possible_keys' => 'PRIMARY',
+  'key' => 'PRIMARY',
+  'key_len' => '4',
+  'ref' => 'const',
+  'rows' => 1,
+  'extra' => '',
+) ]
+[ sql ] [ SQL ] SELECT * FROM `vedio_res` WHERE  `id` = 95 [ RunTime:0.000177s ]
+[ sql ] [ EXPLAIN : array (
+  'id' => 1,
+  'select_type' => 'SIMPLE',
+  'table' => 'vedio_res',
+  'type' => 'const',
+  'possible_keys' => 'PRIMARY',
+  'key' => 'PRIMARY',
+  'key_len' => '4',
+  'ref' => 'const',
+  'rows' => 1,
+  'extra' => '',
+) ]
+[ sql ] [ SQL ] SELECT * FROM `vedio_res` WHERE  `id` = 104 [ RunTime:0.000210s ]
+[ sql ] [ EXPLAIN : array (
+  'id' => 1,
+  'select_type' => 'SIMPLE',
+  'table' => 'vedio_res',
+  'type' => 'const',
+  'possible_keys' => 'PRIMARY',
+  'key' => 'PRIMARY',
+  'key_len' => '4',
+  'ref' => 'const',
+  'rows' => 1,
+  'extra' => '',
+) ]
+[ sql ] [ SQL ] SELECT * FROM `vedio_res` ORDER BY `create_time`  desc LIMIT 3 [ RunTime:0.000128s ]
+[ sql ] [ EXPLAIN : array (
+  'id' => 1,
+  'select_type' => 'SIMPLE',
+  'table' => 'vedio_res',
+  'type' => 'ALL',
+  'possible_keys' => NULL,
+  'key' => NULL,
+  'key_len' => NULL,
+  'ref' => NULL,
+  'rows' => 127,
+  'extra' => 'Using filesort',
+) ]
+[ sql ] [ SQL ] SELECT * FROM `vedio_res` ORDER BY `like_num`  desc LIMIT 3 [ RunTime:0.000108s ]
+[ sql ] [ EXPLAIN : array (
+  'id' => 1,
+  'select_type' => 'SIMPLE',
+  'table' => 'vedio_res',
+  'type' => 'ALL',
+  'possible_keys' => NULL,
+  'key' => NULL,
+  'key_len' => NULL,
+  'ref' => NULL,
+  'rows' => 127,
+  'extra' => 'Using filesort',
+) ]
+[ sql ] [ SQL ] SELECT * FROM `vedio_res` ORDER BY `click_num`  desc LIMIT 3 [ RunTime:0.000105s ]
+[ sql ] [ EXPLAIN : array (
+  'id' => 1,
+  'select_type' => 'SIMPLE',
+  'table' => 'vedio_res',
+  'type' => 'ALL',
+  'possible_keys' => NULL,
+  'key' => NULL,
+  'key_len' => NULL,
+  'ref' => NULL,
+  'rows' => 127,
+  'extra' => 'Using filesort',
+) ]
+[ sql ] [ SQL ] SELECT `id` FROM `vedio_sqlclass` WHERE  `pid` = 1 [ RunTime:0.000110s ]
+[ sql ] [ EXPLAIN : array (
+  'id' => 1,
+  'select_type' => 'SIMPLE',
+  'table' => 'vedio_sqlclass',
+  'type' => 'ALL',
+  'possible_keys' => NULL,
+  'key' => NULL,
+  'key_len' => NULL,
+  'ref' => NULL,
+  'rows' => 19,
+  'extra' => 'Using where',
+) ]
+[ sql ] [ SQL ] SELECT * FROM `vedio_res` WHERE  `sid` IN (6,70,71) ORDER BY `create_time`  desc LIMIT 4 [ RunTime:0.000133s ]
+[ sql ] [ EXPLAIN : array (
+  'id' => 1,
+  'select_type' => 'SIMPLE',
+  'table' => 'vedio_res',
+  'type' => 'ALL',
+  'possible_keys' => NULL,
+  'key' => NULL,
+  'key_len' => NULL,
+  'ref' => NULL,
+  'rows' => 127,
+  'extra' => 'Using where; Using filesort',
+) ]
+[ sql ] [ SQL ] SELECT `id` FROM `vedio_sqlclass` WHERE  `pid` = 2 [ RunTime:0.000101s ]
+[ sql ] [ EXPLAIN : array (
+  'id' => 1,
+  'select_type' => 'SIMPLE',
+  'table' => 'vedio_sqlclass',
+  'type' => 'ALL',
+  'possible_keys' => NULL,
+  'key' => NULL,
+  'key_len' => NULL,
+  'ref' => NULL,
+  'rows' => 19,
+  'extra' => 'Using where',
+) ]
+[ sql ] [ SQL ] SELECT * FROM `vedio_res` WHERE  `sid` IN (7,8,9,10) ORDER BY `create_time`  desc LIMIT 4 [ RunTime:0.000144s ]
+[ sql ] [ EXPLAIN : array (
+  'id' => 1,
+  'select_type' => 'SIMPLE',
+  'table' => 'vedio_res',
+  'type' => 'ALL',
+  'possible_keys' => NULL,
+  'key' => NULL,
+  'key_len' => NULL,
+  'ref' => NULL,
+  'rows' => 127,
+  'extra' => 'Using where; Using filesort',
+) ]
+[ sql ] [ SQL ] SELECT `id` FROM `vedio_sqlclass` WHERE  `pid` = 3 [ RunTime:0.000098s ]
+[ sql ] [ EXPLAIN : array (
+  'id' => 1,
+  'select_type' => 'SIMPLE',
+  'table' => 'vedio_sqlclass',
+  'type' => 'ALL',
+  'possible_keys' => NULL,
+  'key' => NULL,
+  'key_len' => NULL,
+  'ref' => NULL,
+  'rows' => 19,
+  'extra' => 'Using where',
+) ]
+[ sql ] [ SQL ] SELECT * FROM `vedio_res` WHERE  `sid` IN (11,12,13,72) ORDER BY `create_time`  desc LIMIT 4 [ RunTime:0.000130s ]
+[ sql ] [ EXPLAIN : array (
+  'id' => 1,
+  'select_type' => 'SIMPLE',
+  'table' => 'vedio_res',
+  'type' => 'ALL',
+  'possible_keys' => NULL,
+  'key' => NULL,
+  'key_len' => NULL,
+  'ref' => NULL,
+  'rows' => 127,
+  'extra' => 'Using where; Using filesort',
+) ]
+[ sql ] [ SQL ] SELECT `id` FROM `vedio_sqlclass` WHERE  `pid` = 73 [ RunTime:0.000116s ]
+[ sql ] [ EXPLAIN : array (
+  'id' => 1,
+  'select_type' => 'SIMPLE',
+  'table' => 'vedio_sqlclass',
+  'type' => 'ALL',
+  'possible_keys' => NULL,
+  'key' => NULL,
+  'key_len' => NULL,
+  'ref' => NULL,
+  'rows' => 19,
+  'extra' => 'Using where',
+) ]
+[ sql ] [ SQL ] SELECT * FROM `vedio_res` WHERE  `sid` IN (74,75,76) ORDER BY `create_time`  desc LIMIT 4 [ RunTime:0.000127s ]
+[ sql ] [ EXPLAIN : array (
+  'id' => 1,
+  'select_type' => 'SIMPLE',
+  'table' => 'vedio_res',
+  'type' => 'ALL',
+  'possible_keys' => NULL,
+  'key' => NULL,
+  'key_len' => NULL,
+  'ref' => NULL,
+  'rows' => 127,
+  'extra' => 'Using where; Using filesort',
+) ]
+[ warn ] SQL:SELECT * FROM `vedio_res` ORDER BY `create_time`  desc LIMIT 3 [Using filesort]
+[ warn ] SQL:SELECT * FROM `vedio_res` ORDER BY `like_num`  desc LIMIT 3 [Using filesort]
+[ warn ] SQL:SELECT * FROM `vedio_res` ORDER BY `click_num`  desc LIMIT 3 [Using filesort]
+[ warn ] SQL:SELECT * FROM `vedio_res` WHERE  `sid` IN (:where_sid_in_1,:where_sid_in_2,:where_sid_in_3) ORDER BY `create_time`  desc LIMIT 4 [Using where; Using filesort]
+[ warn ] SQL:SELECT * FROM `vedio_res` WHERE  `sid` IN (:where_sid_in_1,:where_sid_in_2,:where_sid_in_3,:where_sid_in_4) ORDER BY `create_time`  desc LIMIT 4 [Using where; Using filesort]
+[ warn ] SQL:SELECT * FROM `vedio_res` WHERE  `sid` IN (:where_sid_in_1,:where_sid_in_2,:where_sid_in_3,:where_sid_in_4) ORDER BY `create_time`  desc LIMIT 4 [Using where; Using filesort]
+[ warn ] SQL:SELECT * FROM `vedio_res` WHERE  `sid` IN (:where_sid_in_1,:where_sid_in_2,:where_sid_in_3) ORDER BY `create_time`  desc LIMIT 4 [Using where; Using filesort]

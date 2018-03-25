@@ -1,0 +1,180 @@
+---------------------------------------------------------------
+[ 2018-02-27T23:36:14+08:00 ] 123.115.82.57 GET /
+[ info ] aishan.clwub.xin/ [运行时间：0.012138s][吞吐率：82.39req/s] [内存消耗：1,279.22kb] [文件加载：35]
+[ info ] [ LANG ] /home/wwwroot/aishan.clwub.xin/thinkphp/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => '',
+    1 => NULL,
+    2 => NULL,
+  ),
+)
+[ info ] [ HEADER ] array (
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+  'upgrade-insecure-requests' => '1',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36',
+  'cache-control' => 'max-age=0',
+  'connection' => 'keep-alive',
+  'host' => 'aishan.clwub.xin',
+  'content-type' => '',
+  'content-length' => '',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ RUN ] app\index\controller\Index->index[ /home/wwwroot/aishan.clwub.xin/application/index/controller/Index.php ]
+[ info ] [ LOG ] INIT File
+[ error ] [0]致命错误: Class 'app\index\Model\Sqlclass' not found[/home/wwwroot/aishan.clwub.xin/application/index/controller/Index.php:16]
+---------------------------------------------------------------
+[ 2018-02-27T23:36:18+08:00 ] 123.115.82.57 GET /
+[ info ] aishan.clwub.xin/ [运行时间：0.012040s][吞吐率：83.06req/s] [内存消耗：1,279.20kb] [文件加载：35]
+[ info ] [ LANG ] /home/wwwroot/aishan.clwub.xin/thinkphp/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => '',
+    1 => NULL,
+    2 => NULL,
+  ),
+)
+[ info ] [ HEADER ] array (
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+  'upgrade-insecure-requests' => '1',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36',
+  'cache-control' => 'max-age=0',
+  'connection' => 'keep-alive',
+  'host' => 'aishan.clwub.xin',
+  'content-type' => '',
+  'content-length' => '',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ RUN ] app\index\controller\Index->index[ /home/wwwroot/aishan.clwub.xin/application/index/controller/Index.php ]
+[ info ] [ LOG ] INIT File
+[ error ] [0]致命错误: Class 'app\index\Model\Sqlclass' not found[/home/wwwroot/aishan.clwub.xin/application/index/controller/Index.php:16]
+---------------------------------------------------------------
+[ 2018-02-27T23:38:33+08:00 ] 123.115.82.57 GET /
+[ info ] aishan.clwub.xin/ [运行时间：0.012120s][吞吐率：82.51req/s] [内存消耗：1,279.20kb] [文件加载：35]
+[ info ] [ LANG ] /home/wwwroot/aishan.clwub.xin/thinkphp/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => '',
+    1 => NULL,
+    2 => NULL,
+  ),
+)
+[ info ] [ HEADER ] array (
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+  'upgrade-insecure-requests' => '1',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36',
+  'cache-control' => 'max-age=0',
+  'connection' => 'keep-alive',
+  'host' => 'aishan.clwub.xin',
+  'content-type' => '',
+  'content-length' => '',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ RUN ] app\index\controller\Index->index[ /home/wwwroot/aishan.clwub.xin/application/index/controller/Index.php ]
+[ info ] [ LOG ] INIT File
+[ error ] [0]致命错误: Class 'app\index\Model\Sqlclass' not found[/home/wwwroot/aishan.clwub.xin/application/index/controller/Index.php:16]
+---------------------------------------------------------------
+[ 2018-02-27T23:38:34+08:00 ] 123.115.82.57 GET /
+[ info ] aishan.clwub.xin/ [运行时间：0.012117s][吞吐率：82.53req/s] [内存消耗：1,279.20kb] [文件加载：35]
+[ info ] [ LANG ] /home/wwwroot/aishan.clwub.xin/thinkphp/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => '',
+    1 => NULL,
+    2 => NULL,
+  ),
+)
+[ info ] [ HEADER ] array (
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+  'upgrade-insecure-requests' => '1',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36',
+  'cache-control' => 'max-age=0',
+  'connection' => 'keep-alive',
+  'host' => 'aishan.clwub.xin',
+  'content-type' => '',
+  'content-length' => '',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ RUN ] app\index\controller\Index->index[ /home/wwwroot/aishan.clwub.xin/application/index/controller/Index.php ]
+[ info ] [ LOG ] INIT File
+[ error ] [0]致命错误: Class 'app\index\Model\Sqlclass' not found[/home/wwwroot/aishan.clwub.xin/application/index/controller/Index.php:16]
+---------------------------------------------------------------
+[ 2018-02-27T23:38:35+08:00 ] 123.115.82.57 GET /
+[ info ] aishan.clwub.xin/ [运行时间：0.011223s][吞吐率：89.10req/s] [内存消耗：1,279.20kb] [文件加载：35]
+[ info ] [ LANG ] /home/wwwroot/aishan.clwub.xin/thinkphp/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => '',
+    1 => NULL,
+    2 => NULL,
+  ),
+)
+[ info ] [ HEADER ] array (
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+  'upgrade-insecure-requests' => '1',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36',
+  'cache-control' => 'max-age=0',
+  'connection' => 'keep-alive',
+  'host' => 'aishan.clwub.xin',
+  'content-type' => '',
+  'content-length' => '',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ RUN ] app\index\controller\Index->index[ /home/wwwroot/aishan.clwub.xin/application/index/controller/Index.php ]
+[ info ] [ LOG ] INIT File
+[ error ] [0]致命错误: Class 'app\index\Model\Sqlclass' not found[/home/wwwroot/aishan.clwub.xin/application/index/controller/Index.php:16]
+---------------------------------------------------------------
+[ 2018-02-27T23:39:24+08:00 ] 123.115.82.57 GET /
+[ info ] aishan.clwub.xin/ [运行时间：0.012113s][吞吐率：82.56req/s] [内存消耗：1,279.20kb] [文件加载：35]
+[ info ] [ LANG ] /home/wwwroot/aishan.clwub.xin/thinkphp/lang/zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => '',
+    1 => NULL,
+    2 => NULL,
+  ),
+)
+[ info ] [ HEADER ] array (
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+  'upgrade-insecure-requests' => '1',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36',
+  'cache-control' => 'max-age=0',
+  'connection' => 'keep-alive',
+  'host' => 'aishan.clwub.xin',
+  'content-type' => '',
+  'content-length' => '',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ RUN ] app\index\controller\Index->index[ /home/wwwroot/aishan.clwub.xin/application/index/controller/Index.php ]
+[ info ] [ LOG ] INIT File
+[ error ] [0]致命错误: Class 'app\index\Model\Sqlclass' not found[/home/wwwroot/aishan.clwub.xin/application/index/controller/Index.php:16]

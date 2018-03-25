@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<!-- 
+	个人中心的默认页面，在php页面需要一开始就判断是否登录
+	以及来访的是否是本人
+	模块有/资料管理/投稿视频/留言板/后台登录（管理员权限）
+ -->
+<html>
+<head>
+	<title>{block name="title"}个人中心-爱闪视频网{/block}</title>
+	<meta charset="utf-8"/>
+</head>
+<body>
+	{extend name="layoutOther"}
+	{block name="showBody"}
+	<style type="text/css">
+		.userBox {
+			background-color: #F3F3F3;
+			box-shadow: 2px 2px 2px #C1C1C1;
+			margin: 50px ; 
+			padding: 50px;
+			text-align: center;
+			min-width: 640px;
+		}
+		.top-grids {
+			text-align: left;
+		}
+		.top-grids button {
+			background-color: transparent;
+		}
+		.userPage1 {
+			text-align: center;
+			margin-top: 2em;
+		}
+		.changeLight {
+			width: 70%;
+			font-size: 16px;
+			margin: 0 auto;
+			border: 5px solid #EDB2ED;
+			border-radius: 10px;
+			padding: 0 20px 20px;
+			min-width: 440px;
+		}
+		.changeLight table {
+			width: 50%;
+			text-align: center;
+			margin: 0 auto;
+		}
+		.changeLight p {
+			text-align: left;
+			font-size: 22px;
+			color: #ED62ED;
+		}
+		.changeLight table tr{
+			height: 40px;
+			line-height: 40px;
+		}
+		.changeHeavy , .changePhoto{
+			width: 70%;
+			font-size: 16px;
+			margin: 50px auto;
+			border: 5px solid #EDB2ED;
+			border-radius: 10px;
+			padding: 0 20px 20px;
+			min-width: 440px;
+		}
+		.changeHeavy p ,  .changePhoto p{
+			text-align: left;
+			font-size: 22px;
+			color: #ED62ED;
+		}
+		.userPage1 {
+			display: none;
+		}
+		.show {
+			display: block;
+		}
+		.adminLogin {
+			font-size: 20px;
+			line-height: 20px;
+			color: black;
+			position: relative;
+			top: -5px;
+		}
+		.btnCode {
+			color: black;
+		}
+		.glyphicon-time {
+			color: white;
+		}
+	</style>
+		<!-- 使用window.onload， sessionID和getID不同时，不展示资料管理界面-->
+		<div class="show-top-grids">
+			<div class="userBox">
+				<div class="top-grids">
+					<div class="recommended-info">
+					<button class="btnTop3 choice">资料管理</button>
+					<button class="btnTop3 btnRes">投稿历史</button>
+					<button class="btnTop3 btnRes">我的购买</button>
+					{if !empty($Think.session.username)}
+						{if $Think.session.grade == '管理员'}
+							<button type="button" class="btn btn-warning adminLogin">后台登录</button>
+						{/if}
+					{/if}
+					<!-- 第一个选项卡页面 -->
+					<div class="userPage1 show">
+						<div class="changeLight">
+							<p>基本资料<br /><span style="font-size: 16px; color: #8d8d8d;">单击资料即可修改</span></p>
+							<table>
+								<tr>
+									<td>用户名：</td>
+									<td id="tdUname" class="username" tabindex="0" hidefocus="true">{$username}</td>
+								</tr>
+								<tr>
+									<td>邮箱：</td>
+									<td id="tdEmail" class="email" tabindex="0" hidefocus="true">{$email}</td>
+								</tr>
+								<tr>
+									<td>手机号：</td>
+									<td id="tdPhone" class="phone" tabindex="0" hidefocus="true">{$phone}</td>
+								</tr>
+							</table>
+						</div>
+						<div class="changeHeavy">
+							<p>安全资料<br /><span style="font-size: 16px; color: #8d8d8d;">旧密码填写正确才可修改</span></p>
+							<div class="col-sm-3" style="margin-top: 10px;">
+								旧密码：
+							</div>
+							 <div class="col-sm-9" style="margin-top: 10px;">
+								<input type="password" class="pwdOld form-control" placeholder="填写旧密码" /><span class="spanOld" style="color: red; display: none;"></span><br />
+							</div>
+							<div class="col-sm-3">
+								新密码：
+							</div>
+							 <div class="col-sm-9">
+								<input type="password" class="pwdNew form-control" placeholder="密码长度不得少于6位" /><span class="spanNew" style="color: red; display: none;""></span><br  />
+							</div>
+							<button class="btn btn-info btnCode">修改密码</button>
+						</div>
+						<div class="changePhoto">
+							<p>头像上传<br /><span style="font-size: 16px; color: #8d8d8d;">只支持jpg、jpeg、png和gif的图片格式</span></p>
+							<div style="text-align: left; margin: 10px 0 15px 0;">
+								当前头像：
+								<img src="{$Think.session.photo}" width="50px;" height="50px;" />
+							</div>
+							<form action="/index/user/changePhoto" enctype="multipart/form-data" method="post">
+								<input type="file" name="image" /> <br />
+								<input type="submit" value="上传头像" class="btn btn-info" />
+							</form>
+						</div>
+					</div>
+					<script type="text/javascript">
+						var tdUname = document.getElementById('tdUname');
+						tdUname.onfocus = function () {changed(this)};
+						var tdEmail = document.getElementById('tdEmail');
+						tdEmail.onfocus = function () {changed(this)};
+						var tdPhone = document.getElementById('tdPhone');
+						tdPhone.onfocus = function () {changed(this)};
+
+						var flag = true;
+						// 更改普通数据的方法
+						if (flag) {
+							function changed(obj)
+							{
+								flag = false;
+								var str = obj.innerHTML;
+								obj.innerHTML ='';
+								var newPut = document.createElement('input');
+								newPut.type = 'text';
+								newPut.value = str;
+								newPut.style.width = '100%';
+								obj.appendChild(newPut);	
+								newPut.onblur = function () {
+									flag = true;
+									var newValue = newPut.value;
+									$.ajax({
+										method:'post',
+										url:'/index/user/changeInfo',
+										async:true,
+										data:{
+											name:obj.className,
+											value:newValue
+										},
+										success:changeInfo
+									});
+									function changeInfo(data2)
+									{
+										var kob = JSON.parse(data2);
+							          		obj.innerHTML = newPut.value;
+										if (kob['msg'] == '修改成功' && obj.className == 'username') {
+											$('.top_name').html(newValue);
+										}
+									}
+								};
+
+							}
+						}
+						$('.btnCode').on('click', function() {
+							// 判断旧密码是否输入
+							if ($('.pwdOld').val() == '') {
+								$('.spanOld').html('旧密码不得为空');
+								$('.spanOld').css('display', 'block');
+								return false;
+							} else {
+								$('.spanOld').html('');
+								$('.spanOld').css('display', 'none');
+							}
+							// 判断新密码格式
+							if ($('.pwdNew').val().length < 6) {
+								$('.spanNew').html('密码长度不得少于6位');
+								$('.spanNew').css('display', 'block');
+								return false;
+							} else {
+								$('.spanNew').html('');
+								$('.spanNew').css('display', 'none');
+							}
+							// 传回后台
+							$.ajax({
+								url:'/index/user/changePwd',
+								async:true,
+								type:'post',
+								data:{
+									pwdOld:$('.pwdOld').val(),
+									pwdNew:$('.pwdNew').val(),
+								},
+								success:changePwd
+							});
+							function changePwd(data1)
+							{
+								var kbj = JSON.parse(data1);
+								alert(kbj['msg']);
+								return false;
+							}
+							return false;
+						});
+					</script>
+					<!-- 完成-第一个选项卡页面 -->
+					<!-- 第二个选项卡页面-遍历，就写三行一页，九个视频一页 -->
+					<div class="userPage1" style="height: 1300px;">
+						<div id="resBox"></div>
+						<!-- 分页区 -->
+						<div class="pages col-md-12 resent-grid recommended-grid slider-top-grids">
+							<a href ="" class="aPage">首页</a>
+							<a href ="" class="aPage">前页</a>
+							<a href ="" class="aPage">后页</a>
+							<a href ="" class="aPage">尾页</a>
+						</div>
+						<style type="text/css">
+							.pages {
+								margin-top: 10px;
+							}
+							.pages a {
+								font-size: 16px;
+								text-decoration: none;
+								color: #ED62ED;
+								margin-left: 10px;
+							}
+							.pages a:hover {
+								color: #cdcdcd;
+							}		
+						</style>
+						<!-- 完成-分页区 -->
+					</div>
+					<!-- 完成-第二个选项卡页面 -->
+					<!-- 第三个选项卡 -->
+					<div class="userPage1" style="height: 1080px;">
+						<table id="tableBox" border="1" cellspacing="0">
+							<tr>
+								<th>订单号</th>
+								<th>购买人</th>
+								<th>购买视频</th>
+								<th>价格（元）</th>
+								<th>购买时间</th>
+							</tr>
+						</table>
+						<!-- 分页区 -->
+						<div class="pages col-md-12 resent-grid recommended-grid slider-top-grids">
+							<a href ="" class="aPage2">首页</a>
+							<a href ="" class="aPage2">前页</a>
+							<a href ="" class="aPage2">后页</a>
+							<a href ="" class="aPage2">尾页</a>
+						</div>
+						<style type="text/css">
+							#tableBox {
+								width: 100%; 
+								padding:40px; 
+								border: 2px solid #cdcdcd; 
+								font-size: 16px;
+								text-align: center;
+							}
+							#tableBox th {
+								text-align: center;
+								padding-top: 10px;
+								padding-bottom: 10px;
+							}
+							#tableBox td {
+								text-align: center;
+								padding-top: 10px;
+								padding-bottom: 10px;
+							}
+							.pages {
+								margin-top: 10px;
+							}
+							.pages a {
+								font-size: 16px;
+								text-decoration: none;
+								color: #ED62ED;
+								margin-left: 10px;
+							}
+							.pages a:hover {
+								color: #cdcdcd;
+							}		
+						</style>
+						<!-- 完成-分页区 -->
+					</div>
+					<!-- 完成-第三个选项卡 -->
+
+					<!-- 选项卡的特效 -->
+					<script type="text/javascript">
+						$(function () {
+							$('.btnTop3').click(function () {
+								$(this).addClass('choice').siblings().removeClass('choice');
+								var index = $(this).index();
+								$('.userPage1').eq(index).addClass('show').siblings().removeClass('show');
+							});
+						});
+						$('.adminLogin').click(function() {
+							$(location).prop('href', "/admin/login/login");
+						});
+					</script>
+					<!-- 完成-选项卡的特效 -->
+					<!-- 视频的ajax遍历 -->
+					<script type="text/javascript">
+						var pA = document.getElementsByClassName('aPage');
+						var rBox = document.getElementById('resBox');
+						var pA2 = document.getElementsByClassName('aPage2');
+						var tBox = document.getElementById('tableBox');
+						$.ajax({
+							type:'post',
+							url:'/index/user/getRes',
+							data:null,
+							async:true,
+							success:res
+						});
+						function res(data)
+						{
+							var obj = JSON.parse(data);
+							console.log(obj);
+							// 清空已有视频标签
+							rBox.innerHTML = '';
+							// 循环创建视频标签
+							for (var i = 0; i < obj['Res'].length; i++) {
+								// 创建第一层标签
+								var rDiv = document.createElement('div');
+								rDiv.className = 'col-md-4 resent-grid recommended-grid slider-top-grids';
+								$(rDiv).css({
+									'margin-bottom': '30px',
+								});
+								rBox.appendChild(rDiv);
+								// 创建第二层标签
+								uDiv = document.createElement('div');
+								uDiv.className = 'resent-grid-img recommended-grid-img';
+								dDiv = document.createElement('div');
+								dDiv.className = 'resent-grid-info recommended-grid-info';
+								rDiv.appendChild(uDiv);
+								rDiv.appendChild(dDiv);
+								// 创建第三层标签
+								rA = document.createElement('a');
+								rA.href = '/index/single/single?vid=' + obj['Res'][i]['id'];
+								sDiv = document.createElement('div');
+								sDiv.className = 'clck';
+								uDiv.appendChild(rA);
+								uDiv.appendChild(sDiv);
+
+								rH3 = document.createElement('h3');
+								$(rH3).css({
+									'height': '25px',
+								});
+								rUl = document.createElement('ul');
+								dDiv.appendChild(rH3);
+								dDiv.appendChild(rUl);
+								// 创建第四层标签
+								rImg = document.createElement('img');
+								$('rImg').css({
+									'height': '75%',
+								});;
+								rImg.src = 'http://p3d4qx20z.bkt.clouddn.com/' + obj['Res'][i]['pic'];
+								rA.appendChild(rImg);
+
+								rSpan = document.createElement('span');
+								rSpan.className = 'glyphicon glyphicon-time';
+								rSpan.ariaHidden = 'true';
+								rSpan.innerHTML = obj['Res'][i]['time_long'];
+								sDiv.appendChild(rSpan);
+
+								rA1 = document.createElement('a');
+								rA1.className = 'title title-info';
+								rA1.href = '/index/single/single?vid=' + obj['Res'][i]['id'];
+								rA1.innerHTML = obj['Res'][i]['title'];
+								rH3.appendChild(rA1);
+
+								rLi = document.createElement('li');
+								$(rLi).css({
+									'text-align': 'left',
+								});;
+								rLi1 = document.createElement('li');
+								rLi1.className = 'right-list';
+								rUl.appendChild(rLi);
+								rUl.appendChild(rLi1);
+								// 第五层标签新建
+								rA2 = document.createElement('a');
+								rA2.href = '#';
+								rA2.className = 'author authorDel';
+								rA2.id = obj['Res'][i]['id'];
+								rA2.innerHTML = '删除';
+								$(rA2).css({
+									'font-weight': 'bolder',
+									'color': '#21DEEF'
+								});;
+								// 删除按钮
+								rA2.onclick = function() {
+									del(this);
+									var oDel = this.parentNode.parentNode.parentNode.parentNode;
+									rBox.removeChild(oDel);
+									return false;
+								};
+								rLi.appendChild(rA2);
+								rP1 = document.createElement('p');
+								rP1.className = 'views views-info';
+								rP1.innerHTML = obj['Res'][i]['click_num'] /2 + '次浏览';
+								rLi1.appendChild(rP1);
+							}
+
+							// 清空已有交易记录标签
+							tBox.innerHTML = '';
+							// 创建table表头
+							var pTr1 = document.createElement('tr');
+							tBox.appendChild(pTr1);
+							var str1 = 
+								"<th>订单号</th>" + 
+								"<th>购买人</th>" + 
+								"<th>购买视频</th>" + 
+								"<th>价格（元）</th>" + 
+								"<th>购买时间</th>";
+							pTr1.innerHTML = str1;
+
+							// 循环创建购买记录
+							for (var j = 0; j < obj['pay'].length; j++) {
+								// 创建第一层标签
+								var pTr = document.createElement('tr');
+								tBox.appendChild(pTr);
+								// 创建第二层标签
+								var str = 
+								"<td>" + obj['pay'][j]['id'] + "</td>" + 
+								"<td>" + obj['pay'][j]['username'] + "</td>" + 
+								"<td>" + obj['pay'][j]['title'] + "</td>" + 
+								"<td>" + obj['pay'][j]['price'] + "</td>" + 
+								"<td>" + obj['pay'][j]['create_time'] + "</td>";
+								pTr.innerHTML = str;
+							}
+
+							// 把allpage的链接赋值到a标签上
+							var oPage = obj['pages'];
+							var i = 0;
+							for (var name in oPage) {
+								pA[i].href = 'javascript:test(\'' + oPage[name] + '\')';
+								i++;
+							}
+
+							// 把allpage的链接赋值到a标签上
+							var oPage2 = obj['pagesP'];
+							var q = 0;
+							for (var name in oPage2) {
+								pA2[q].href = 'javascript:test(\'' + oPage2[name] + '\')';
+								q++;
+							}
+						}
+						function test(url)
+						{
+							$.ajax({
+								type:'get',
+								url:url,
+								async:true,
+								data:null,
+								dataType:'json',
+								success:res
+							});
+						}
+						function del(obj) {
+							// 获取删除视频的id
+							var vID = $(obj).attr('id');
+							// 将删除视频的id传到后台
+							$.ajax({
+								type:'post',
+								dataType:'json',
+								url:'/index/user/delVideo',
+								data:{
+									videoID:vID
+								},
+								async:true,
+							});
+						};
+					</script>
+					<!-- 完成-视频的ajax遍历 -->
+				</div>
+			</div>
+		</div>
+	{/block}
+</body>
+</html>
